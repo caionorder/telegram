@@ -107,6 +107,21 @@ def init_db() -> None:
     cols = [r[1] for r in con.execute("PRAGMA table_info(channels)").fetchall()]
     if "invite_link" not in cols:
         con.execute("ALTER TABLE channels ADD COLUMN invite_link TEXT NOT NULL DEFAULT ''")
+    if "schedule" not in cols:
+        con.execute("ALTER TABLE channels ADD COLUMN schedule TEXT NOT NULL DEFAULT '08,11,14,17,20'")
+    if "schedule_on" not in cols:
+        con.execute("ALTER TABLE channels ADD COLUMN schedule_on INTEGER NOT NULL DEFAULT 0")
+    con.execute(
+        """
+        CREATE TABLE IF NOT EXISTS send_slots (
+            channel_id INTEGER NOT NULL,
+            day TEXT NOT NULL,
+            hour TEXT NOT NULL,
+            sent_at TEXT NOT NULL,
+            PRIMARY KEY (channel_id, day, hour)
+        )
+        """
+    )
     con.commit()
     con.close()
 
@@ -473,6 +488,89 @@ def send_channel_json(channel_id: int) -> dict:
     return {"sent": sent, "errors": errors, "total": len(posts)}
 
 
+def parse_hours(raw: str) -> list:
+    out = []
+    for part in (raw or "").replace(";", ",").split(","):
+        p = part.strip()
+        if not p:
+            continue
+        if p.isdigit():
+            out.append(f"{int(p):02d}")
+    return out
+
+
+def scheduler_tick() -> None:
+    """Uma vez por hora, por canal com agenda. Relê o JSON na hora (arquivo ou URL)."""
+    day = time.strftime("%Y-%m-%d")
+    hour = time.strftime("%H")
+    con = db()
+    chans = rows(con, "SELECT * FROM channels WHERE active=1 AND schedule_on=1")
+    con.close()
+    for ch in chans:
+        hours = parse_hours(ch.get("schedule") or "")
+        if hour not in hours:
+            continue
+        con = db()
+        done = con.execute(
+            "SELECT 1 FROM send_slots WHERE channel_id=? AND day=? AND hour=?",
+            (ch["id"], day, hour),
+        ).fetchone()
+        con.close()
+        if done:
+            continue
+        try:
+            result = send_channel_json(ch["id"])
+            con = db()
+            con.execute(
+                "INSERT OR IGNORE INTO send_slots(channel_id, day, hour, sent_at) VALUES(?,?,?,?)",
+                (ch["id"], day, hour, now()),
+            )
+            con.commit()
+            con.close()
+            log_event(
+                "schedule",
+                f"{hour}h {ch['name']}: {len(result.get('sent') or [])}/{result.get('total')}",
+                ch["id"],
+            )
+        except Exception as e:
+            log_event("error", f"agenda {hour}h {ch['name']}: {e}", ch["id"])
+
+
+def scheduler_loop() -> None:
+    log_event("schedule", "agenda JSON ligada (relógio do computador)")
+    while True:
+        try:
+            scheduler_tick()
+        except Exception as e:
+            log_event("error", f"agenda: {e}")
+        time.sleep(20)
+
+
+def agenda_status() -> list:
+    day = time.strftime("%Y-%m-%d")
+    hour = time.strftime("%H")
+    con = db()
+    chans = rows(con, "SELECT id,name,schedule,schedule_on,json_url FROM channels ORDER BY id")
+    slots = rows(con, "SELECT channel_id, hour, sent_at FROM send_slots WHERE day=?", (day,))
+    con.close()
+    sent_map = {}
+    for s in slots:
+        sent_map.setdefault(s["channel_id"], []).append(s["hour"])
+    out = []
+    for c in chans:
+        hours = parse_hours(c.get("schedule") or "")
+        out.append(
+            {
+                **c,
+                "hours": hours,
+                "sent_today": sent_map.get(c["id"], []),
+                "now_hour": hour,
+                "due_now": hour in hours and c.get("schedule_on") and hour not in sent_map.get(c["id"], []),
+            }
+        )
+    return out
+
+
 # ── HTTP ────────────────────────────────────────────────────────────────────
 
 def json_body(handler) -> dict:
@@ -548,6 +646,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send_json(
                     200, {"ok": True, "on": _daemon_on, "status": _daemon_status}
                 )
+            if path == "/api/agenda":
+                return self.send_json(200, {"ok": True, "channels": agenda_status()})
             if path == "/api/discovered":
                 q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
                 bot_id = int((q.get("bot_id") or ["0"])[0])
@@ -580,8 +680,8 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/api/channels":
                 invite = make_join_link(int(body["bot_id"]), str(body["chat_id"]))
                 con.execute(
-                    "INSERT INTO channels(name,chat_id,bot_id,welcome_text,json_url,active,created_at,invite_link) "
-                    "VALUES(?,?,?,?,?,?,?,?)",
+                    "INSERT INTO channels(name,chat_id,bot_id,welcome_text,json_url,active,created_at,invite_link,schedule,schedule_on) "
+                    "VALUES(?,?,?,?,?,?,?,?,?,?)",
                     (
                         body["name"],
                         str(body["chat_id"]),
@@ -591,13 +691,15 @@ class Handler(BaseHTTPRequestHandler):
                         1 if body.get("active", True) else 0,
                         now(),
                         invite,
+                        body.get("schedule") or "08,11,14,17,20",
+                        1 if body.get("schedule_on") else 0,
                     ),
                 )
                 con.commit()
                 return self.send_json(200, {"ok": True, "invite_link": invite})
             if path == "/api/channels/update":
                 con.execute(
-                    "UPDATE channels SET name=?, chat_id=?, bot_id=?, welcome_text=?, json_url=?, active=? WHERE id=?",
+                    "UPDATE channels SET name=?, chat_id=?, bot_id=?, welcome_text=?, json_url=?, active=?, schedule=?, schedule_on=? WHERE id=?",
                     (
                         body["name"],
                         str(body["chat_id"]),
@@ -605,6 +707,8 @@ class Handler(BaseHTTPRequestHandler):
                         body.get("welcome_text") or "",
                         body.get("json_url") or "",
                         1 if body.get("active", True) else 0,
+                        body.get("schedule") or "08,11,14,17,20",
+                        1 if body.get("schedule_on") else 0,
                         int(body["id"]),
                     ),
                 )
@@ -660,9 +764,11 @@ class Handler(BaseHTTPRequestHandler):
 def main() -> None:
     init_db()
     STATIC.mkdir(parents=True, exist_ok=True)
+    threading.Thread(target=scheduler_loop, name="json-agenda", daemon=True).start()
     httpd = ThreadingHTTPServer((HOST, PORT), Handler)
     print(f"JOINADS Telegram  →  http://{HOST}:{PORT}")
     print(f"login  {ADMIN_USER}  /  senha do .env (ADMIN_PASSWORD)")
+    print("Agenda JSON: ligada enquanto o painel estiver aberto (relógio desta máquina)")
     print("Ctrl+C para parar")
     try:
         httpd.serve_forever()

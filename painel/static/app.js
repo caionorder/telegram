@@ -76,6 +76,7 @@ async function loadChannels() {
           <strong>${esc(c.name)}</strong>
           <div class="muted mono">${esc(c.chat_id)} · ${esc(c.bot_username)}</div>
           <div class="muted">JSON: ${esc(c.json_url || "—")}</div>
+          <div class="muted">${c.schedule_on ? "Agenda: " + esc(c.schedule || "—") : "Agenda: só manual"}</div>
           ${c.invite_link ? `<div class="muted">Convite: <span class="mono">${esc(c.invite_link)}</span></div>` : ""}
         </div>
         <div class="actions">
@@ -159,6 +160,10 @@ function openChannel(existing) {
       <textarea id="c-welcome">${esc(existing?.welcome_text||"Oi, {name}! Sou a Amanda do RH. Sua entrada já foi aprovada.\\n\\nMe manda seu WhatsApp com DDI.\\n+55 11 99391-1111")}</textarea>
       <label for="c-json">JSON (arquivo no repo ou URL)</label>
       <input id="c-json" value="${esc(existing?.json_url||"content/vagas.exemplo.json")}">
+      <label><input type="checkbox" id="c-sched-on" ${existing?.schedule_on ? "checked" : ""}> Agenda ligada (lê o JSON sozinho nos horários)</label>
+      <label for="c-sched">Horários (hora local deste PC)</label>
+      <input id="c-sched" value="${esc(existing?.schedule||"08,11,14,17,20")}" placeholder="08,11,14,17,20">
+      <p class="muted">Em cada horário o painel baixa o JSON de novo e envia. Uma vez por hora. Sem o painel aberto, não envia.</p>
       <div class="actions">
         <button class="btn btn-primary" type="submit">Salvar canal</button>
         <button class="btn btn-ghost" type="button" id="ch-cancel">Cancelar</button>
@@ -190,6 +195,8 @@ function openChannel(existing) {
       bot_id: Number($("#c-bot").value),
       welcome_text: $("#c-welcome").value,
       json_url: $("#c-json").value,
+      schedule: $("#c-sched").value,
+      schedule_on: $("#c-sched-on").checked,
       active: true,
     };
     const d = existing
@@ -260,11 +267,30 @@ async function loadLogs() {
 }
 $("#btn-refresh-logs").onclick = loadLogs;
 
+async function loadAgenda() {
+  const el = $("#list-agenda");
+  if (!el) return;
+  const d = await api("/api/agenda");
+  const list = d.channels || [];
+  if (!list.length) { el.innerHTML = "<p class='muted'>Nenhum canal. A agenda se configura em Canais → Editar.</p>"; return; }
+  el.innerHTML = list.map(c => `
+    <div class="row" style="margin-bottom:10px">
+      <div>
+        <strong>${esc(c.name)}</strong>
+        <div class="muted">${c.schedule_on ? "Horários: " + esc((c.hours||[]).join(", ")||"—") : "Só envio manual"}</div>
+        <div class="muted">Hoje já saiu: ${(c.sent_today||[]).join(", ") || "nada"} · agora ${esc(c.now_hour)}h</div>
+      </div>
+      <span class="pill ${c.schedule_on ? "" : "off"}">${c.schedule_on ? (c.due_now ? "vence agora" : "agendado") : "manual"}</span>
+    </div>`).join("");
+}
+$("#btn-refresh-agenda") && ($("#btn-refresh-agenda").onclick = loadAgenda);
+
 async function boot() {
   await loadBots();
   await loadChannels();
   await loadDaemon();
   await loadLogs();
+  await loadAgenda();
   tab("canais");
 }
 

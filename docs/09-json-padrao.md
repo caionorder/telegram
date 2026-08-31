@@ -46,6 +46,16 @@ O painel lê e publica. **Todo post leva `buttons` com `url`.** Sem botão o env
 No canal: JSON = `content/vagas.exemplo.json`  
 Ou hospeda o mesmo JSON e cola a URL.
 
-## Enviar
+## Enviar — agora ou na agenda
 
-Painel → Canais → **Enviar JSON agora**.
+**Manual:** Canais → **Enviar JSON agora**.
+
+**Agenda (no painel):** no canal, liga **Agenda ligada** e põe os horários (`08,11,14,17,20`). O relógio é **deste computador**. Em cada hora o painel:
+
+1. Lê o JSON de novo (arquivo ou URL — se você atualizou, pega o novo)
+2. Publica os posts com botão
+3. Marca a hora como enviada. Não manda de novo na mesma hora.
+
+O processo é o **mesmo** `python3 painel/app.py`. Sem o painel aberto, a agenda **não** roda. LaunchAgent / Agendador no login mantém isso vivo.
+
+Uma vez por canal por hora. “Enviar agora” não gasta o slot da agenda.

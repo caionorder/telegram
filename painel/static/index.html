@@ -65,14 +65,15 @@
         <div class="top">
           <div>
             <h2>JSON / envio</h2>
-            <p class="sub">O canal aponta pra um arquivo local ou uma URL. Todo post leva botão com link.</p>
+            <p class="sub">O canal aponta pra um arquivo ou URL. Nos horários o painel lê de novo e publica. Sem o painel aberto, a agenda não roda.</p>
           </div>
+          <button class="btn btn-ghost" type="button" id="btn-refresh-agenda">Atualizar agenda</button>
         </div>
-        <div class="card">
-          <p class="muted">Exemplo no repo: <span class="mono">content/vagas.exemplo.json</span></p>
-          <p class="muted">No canal, campo JSON: esse caminho ou uma URL https://…</p>
-          <p class="muted">Tipos: <span class="mono">text</span> · <span class="mono">photo</span> · <span class="mono">video</span> — todos com <span class="mono">buttons[].url</span></p>
+        <div class="card" style="margin-bottom:12px">
+          <p>Tipos: <span class="mono">text</span> · <span class="mono">photo</span> · <span class="mono">video</span> — todos com <span class="mono">buttons[].url</span></p>
+          <p class="muted">Exemplo: <span class="mono">content/vagas.exemplo.json</span> ou uma URL. Troca o JSON que o próximo horário já pega o novo.</p>
         </div>
+        <div class="card" id="list-agenda"><p class="muted">Carregando…</p></div>
       </section>
 
       <section data-panel="daemon" class="hidden">
