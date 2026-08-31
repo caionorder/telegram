@@ -1,6 +1,6 @@
 # 03 — Mensagem no particular
 
-No mesmo instante da aprovação, @rh_amanda escreve no particular.
+No mesmo instante da aprovação, @rh_amanda_bot escreve no particular.
 
 ## Texto (modelo)
 

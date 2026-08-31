@@ -1,4 +1,4 @@
-# Comandos — @rh_amanda / Empregos On-line
+# Comandos — @rh_amanda_bot / Empregos On-line
 
 Dry-run (padrão): imprime o JSON, **não envia**.
 

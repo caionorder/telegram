@@ -2,7 +2,7 @@
 """
 Exemplo LIGHT — administração de grupo Telegram
 Grupo: Empregos On-line
-Bot:   @rh_amanda  (Amanda, RH)
+Bot:   @rh_amanda_bot  (Amanda, RH)
 
 Três ações:
 
@@ -45,7 +45,7 @@ import urllib.parse
 import urllib.request
 
 GRUPO = "Empregos On-line"
-BOT = "@rh_amanda"
+BOT = "@rh_amanda_bot"
 RH = "Amanda"
 
 API = "https://api.telegram.org/bot{token}/{method}"
@@ -210,7 +210,7 @@ def main() -> None:
     args = p.parse_args()
     token = os.environ.get("BOT_TOKEN", "").strip()
     if args.go and not token:
-        print("ERRO: export BOT_TOKEN=...  (token do @rh_amanda)")
+        print("ERRO: export BOT_TOKEN=...  (token do @rh_amanda_bot)")
         sys.exit(1)
     if not token:
         token = "TOKEN_DO_RH_AMANDA"

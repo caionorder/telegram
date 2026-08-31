@@ -143,7 +143,7 @@ p{margin:0}
     <div class="cover-rule"></div>
     <div class="cover-meta">
       <div class="m"><span class="label">Grupo de treino</span><strong>Empregos On-line</strong></div>
-      <div class="m"><span class="label">Bot</span><strong>@rh_amanda</strong></div>
+      <div class="m"><span class="label">Bot</span><strong>@rh_amanda_bot</strong></div>
       <div class="m"><span class="label">Time</span><strong>JOINADS</strong></div>
     </div>
     <div class="cover-disclaimer">Pediu pra entrar → o bot aceita na hora → Amanda manda o particular → o grupo mostra a vaga com botão. Fila de gente pendente = alerta.</div>
@@ -156,18 +156,18 @@ p{margin:0}
   <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Agenda</span></div>
   <div class="content">
     <div class="kicker">O que você sai sabendo</div>
-    <h2>Três gestos. Nesta ordem.</h2>
+    <h2>Primeiro monta. Depois opera.</h2>
     <div class="rule"></div>
     <div class="g3">
       <div class="tile dark">
-        <span class="idx">01</span>
-        <h3>Aceitar</h3>
-        <p>A pessoa pede. O bot deixa entrar. Ninguém espera na fila.</p>
+        <span class="idx">00</span>
+        <h3>Criar bot e grupo</h3>
+        <p>BotFather + grupo privado com pedido. Sem isso o resto não existe.</p>
       </div>
       <div class="tile soft">
-        <span class="idx" style="color:#15943b">02</span>
-        <h3>Escrever no particular</h3>
-        <p>Amanda confirma a entrada e pede o WhatsApp com DDI.</p>
+        <span class="idx" style="color:#15943b">01–02</span>
+        <h3>Aceitar e escrever</h3>
+        <p>Pedido entra na hora. Amanda manda o particular.</p>
       </div>
       <div class="tile soft">
         <span class="idx" style="color:#15943b">03</span>
@@ -176,10 +176,148 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>02 / 16</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>02 / 23</span></div>
 </section>
 
-<!-- 03 -->
+<!-- 03 BotFather -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Setup · Bot</span></div>
+  <div class="content">
+    <div class="kicker">Onde o bot nasce</div>
+    <h2>Abre o @BotFather. Selo azul.</h2>
+    <div class="rule"></div>
+    <div class="g2" style="height:calc(100% - 22mm)">
+      <div class="soft" style="border-radius:3.2mm;padding:7mm">
+        <p class="slate" style="font-size:14pt;line-height:1.5">É o bot oficial do Telegram pra criar outros bots. Não é o nosso. Não é um site.</p>
+        <p class="slate" style="margin-top:5mm;font-size:14pt;line-height:1.5">No busca: <strong>@BotFather</strong>. Confere o visto azul. Manda <strong>/start</strong>, depois <strong>/newbot</strong>.</p>
+      </div>
+      <div class="dark" style="border-radius:3.2mm;padding:7mm">
+        <div class="kicker" style="color:#3CF26B">Regra que trava o time</div>
+        <h3 style="margin-top:4mm;font-size:20pt;color:#fff">Username termina em bot</h3>
+        <p style="color:#b7c3bc;margin-top:4mm;font-size:13pt;line-height:1.45">Nome que aparece: <strong style="color:#fff">Amanda RH</strong><br>Username: <strong style="color:#3CF26B">@rh_amanda_bot</strong><br><br>@rh_amanda o BotFather recusa.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>03 / 23</span></div>
+</section>
+
+<!-- 04 /newbot -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Setup · Bot</span></div>
+  <div class="content">
+    <div class="kicker">Quatro respostas</div>
+    <h2>O BotFather pergunta. Você responde.</h2>
+    <div class="rule"></div>
+    <div class="g4">
+      <div class="card" style="min-height:58mm"><span class="n">1</span><h3 style="margin-top:4mm">/newbot</h3><p class="muted" style="margin-top:2mm;font-size:11pt">No chat do BotFather</p></div>
+      <div class="card" style="min-height:58mm"><span class="n">2</span><h3 style="margin-top:4mm">Amanda RH</h3><p class="muted" style="margin-top:2mm;font-size:11pt">Nome. Pode ter espaço e acento</p></div>
+      <div class="card go" style="min-height:58mm"><span class="n">3</span><h3 style="margin-top:4mm">rh_amanda_bot</h3><p class="muted" style="margin-top:2mm;font-size:11pt">Username. Sem @. Termina em bot</p></div>
+      <div class="card dark" style="min-height:58mm"><span class="n">4</span><h3 style="margin-top:4mm;color:#fff">Token</h3><p style="margin-top:2mm;font-size:11pt;color:#b7c3bc">123456:AAH… é a senha do bot</p></div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>04 / 23</span></div>
+</section>
+
+<!-- 05 token -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Setup · Bot</span></div>
+  <div class="content">
+    <div class="g2" style="height:100%">
+      <div class="go" style="border-radius:3.2mm;padding:8mm;background:var(--pale)">
+        <span class="chip ok">faz</span>
+        <h3 style="margin:5mm 0 4mm;font-size:20pt">Cola no .env</h3>
+        <p class="slate" style="font-size:14pt;line-height:1.5">BOT_TOKEN=… na máquina. Quem opera o script precisa. Só isso.</p>
+      </div>
+      <div class="alert" style="border-radius:3.2mm;padding:8mm;background:#fbf2ef">
+        <span class="chip no">não faz</span>
+        <h3 style="margin:5mm 0 4mm;font-size:20pt">Não espalha</h3>
+        <p class="slate" style="font-size:14pt;line-height:1.5">Não manda no WhatsApp. Não commita no Git. Não cola no slide. Quem tem o token fala como a Amanda. Vazou: BotFather → /revoke.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>05 / 23</span></div>
+</section>
+
+<!-- 06 grupo -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Setup · Grupo</span></div>
+  <div class="content">
+    <div class="kicker">Canal fechado / grupo privado</div>
+    <h2>Cria o Empregos On-line. Privado.</h2>
+    <div class="rule"></div>
+    <div class="g3">
+      <div class="card" style="min-height:62mm"><span class="n">1</span><h3 style="margin-top:4mm">Novo grupo</h3><p class="slate" style="margin-top:3mm;font-size:12pt;line-height:1.4">Lápis → Novo grupo. Nome: Empregos On-line. Pode pular membros.</p></div>
+      <div class="card" style="min-height:62mm"><span class="n">2</span><h3 style="margin-top:4mm">Tipo: privado</h3><p class="slate" style="margin-top:3mm;font-size:12pt;line-height:1.4">Editar grupo → Privado. Sem @. Não aparece na busca.</p></div>
+      <div class="card go" style="min-height:62mm"><span class="n">3</span><h3 style="margin-top:4mm">Aprovar membros</h3><p class="slate" style="margin-top:3mm;font-size:12pt;line-height:1.4">Liga “Aprovar novos membros”. Sem isso o pedido não chega no bot.</p></div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>06 / 23</span></div>
+</section>
+
+<!-- 07 link -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Setup · Grupo</span></div>
+  <div class="content">
+    <div class="g2" style="height:100%;align-items:center">
+      <div>
+        <div class="kicker">O link que vale</div>
+        <h2>Só t.me/+ com pedido.</h2>
+        <div class="rule"></div>
+        <p class="slate" style="font-size:14pt;line-height:1.45">Editar → Links de convite → Criar. Liga “Pedir aprovação”. Copia o t.me/+…</p>
+        <p class="slate" style="margin-top:5mm;font-size:14pt;line-height:1.45">O link “Compartilhar” / principal muitas vezes <strong>entra direto</strong>. O bot não vê. O particular não dispara.</p>
+      </div>
+      <div>
+        <div class="card go" style="padding:6mm;margin-bottom:4mm"><div class="chip ok">certo</div><h3 style="margin-top:3mm;font-family:'Courier New',monospace;font-size:16pt">t.me/+AbC123…</h3><p class="muted" style="margin-top:2mm">Pede aprovação. Bot recebe.</p></div>
+        <div class="card alert" style="padding:6mm"><div class="chip no">errado</div><h3 style="margin-top:3mm;font-family:'Courier New',monospace;font-size:16pt">t.me/empregos…</h3><p class="muted" style="margin-top:2mm">Público ou entra direto. Funil quebra.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>07 / 23</span></div>
+</section>
+
+<!-- 08 admin -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Setup · Grupo</span></div>
+  <div class="content">
+    <div class="kicker">O bot precisa de crachá</div>
+    <h2>@rh_amanda_bot vira admin.</h2>
+    <div class="rule"></div>
+    <div class="g2">
+      <div class="card" style="padding:6mm">
+        <h3>Como</h3>
+        <p class="slate" style="margin-top:3mm;font-size:13pt;line-height:1.5">Grupo → Administradores → Adicionar → busca @rh_amanda_bot. Se recusar: BotFather → /setjoingroups → Enable.</p>
+      </div>
+      <div class="card dark" style="padding:6mm">
+        <h3 style="color:#fff">Permissões mínimas</h3>
+        <p style="color:#dbe6df;margin-top:4mm;font-size:13pt;line-height:1.7">Convidar usuários via link — <strong style="color:#3CF26B">sim</strong><br>Enviar / postar mensagens — <strong style="color:#3CF26B">sim</strong><br>Excluir mensagens — recomendado<br>O resto — não precisa</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>08 / 23</span></div>
+</section>
+
+<!-- 09 checklist -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Setup</span></div>
+  <div class="content">
+    <div class="kicker">Antes do --go</div>
+    <h2>Se faltar um, o funil quebra.</h2>
+    <div class="rule"></div>
+    <div class="g2">
+      <div class="card"><strong>1.</strong> Bot criado · username termina em bot</div>
+      <div class="card"><strong>2.</strong> Token só no .env · fora do Git</div>
+      <div class="card"><strong>3.</strong> /setjoingroups Enable</div>
+      <div class="card"><strong>4.</strong> Grupo privado</div>
+      <div class="card go"><strong>5.</strong> Aprovar novos membros ligado</div>
+      <div class="card go"><strong>6.</strong> Link t.me/+ com pedido</div>
+      <div class="card go"><strong>7.</strong> Bot admin · convidar + postar</div>
+      <div class="card"><strong>8.</strong> --chat é -100… · dry-run ok</div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>09 / 23</span></div>
+</section>
+
+<!-- 10 -->
 <section class="page">
   <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Peças</span></div>
   <div class="content">
@@ -197,7 +335,7 @@ p{margin:0}
       <div class="card" style="padding:6mm">
         <div style="display:flex;align-items:center;gap:4mm;margin-bottom:4mm">
           <div class="ava" style="width:14mm;height:14mm;font-size:12pt">A</div>
-          <div><strong style="font-size:14pt">@rh_amanda</strong><br><span class="muted">Amanda · RH</span></div>
+          <div><strong style="font-size:14pt">@rh_amanda_bot</strong><br><span class="muted">Amanda · RH</span></div>
         </div>
         <p class="slate" style="font-size:12pt;line-height:1.4">Admin do grupo. Aprova, fala no particular e publica a vaga.</p>
       </div>
@@ -208,7 +346,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>03 / 16</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>10 / 23</span></div>
 </section>
 
 <!-- 04 -->
@@ -231,7 +369,7 @@ p{margin:0}
     </div>
     <p style="margin-top:8mm;font-size:14pt;color:var(--slate)">O grupo não é o produto. É o mural. O clique que vale é o botão da vaga.</p>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>04 / 16</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>11 / 23</span></div>
 </section>
 
 <!-- 05 -->
@@ -255,7 +393,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>05 / 16</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>12 / 23</span></div>
 </section>
 
 <!-- 06 -->
@@ -280,7 +418,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>06 / 16</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>13 / 23</span></div>
 </section>
 
 <!-- 07 -->
@@ -300,7 +438,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>07 / 16</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>14 / 23</span></div>
 </section>
 
 <!-- 08 -->
@@ -320,7 +458,7 @@ p{margin:0}
           <div class="phone-screen">
             <div class="phone-bar">
               <div class="ava">A</div>
-              <div><span class="who">Amanda</span><span class="sub">@rh_amanda · RH</span></div>
+              <div><span class="who">Amanda</span><span class="sub">@rh_amanda_bot · RH</span></div>
             </div>
             <div class="bubble">
               Oi, João!<br><br>
@@ -333,7 +471,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>08 / 16</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>15 / 23</span></div>
 </section>
 
 <!-- 09 -->
@@ -351,7 +489,7 @@ p{margin:0}
     </div>
     <p class="slate" style="margin-top:8mm;font-size:13pt">Mandou o número → para. Bloqueou → para. Ninguém dispara particular em massa sem ordem.</p>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>09 / 16</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>16 / 23</span></div>
 </section>
 
 <!-- 10 -->
@@ -368,7 +506,7 @@ p{margin:0}
       <div class="tg">
         <div class="tg-head">
           <div class="ava">EO</div>
-          <div><span class="who">Empregos On-line</span><span class="sub">@rh_amanda publicou</span></div>
+          <div><span class="who">Empregos On-line</span><span class="sub">@rh_amanda_bot publicou</span></div>
         </div>
         <div class="tg-body">
           <div class="post">
@@ -383,7 +521,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>10 / 16</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>17 / 23</span></div>
 </section>
 
 <!-- 11 -->
@@ -408,7 +546,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>11 / 16</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>18 / 23</span></div>
 </section>
 
 <!-- 12 -->
@@ -423,7 +561,7 @@ python3 scripts/rh_amanda.py <b>grupo-texto</b>  --chat -100… --texto "…" --
 python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.mp4 --titulo "…" --link "…"</div>
     <p class="slate" style="margin-top:6mm;font-size:13pt">Sem <strong>--go</strong> o script só imprime o JSON. Não manda nada. Use assim no treino.</p>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>12 / 16</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>19 / 23</span></div>
 </section>
 
 <!-- 13 -->
@@ -443,7 +581,7 @@ python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.m
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>13 / 16</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>20 / 23</span></div>
 </section>
 
 <!-- 14 -->
@@ -465,7 +603,7 @@ python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.m
       <div class="card go"><strong>9.</strong> Viu problema, avisa no minuto.</div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>14 / 16</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>21 / 23</span></div>
 </section>
 
 <!-- 15 -->
@@ -482,7 +620,7 @@ python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.m
       <div class="pend-row" style="border:.25mm solid var(--line);border-radius:3mm;margin-bottom:3.5mm"><div><div class="nm">Grupo mudo / post sem botão</div><div class="muted" style="font-size:10pt;margin-top:1mm">Avisa. Não posta nem cola link na mão</div></div></div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>15 / 16</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>22 / 23</span></div>
 </section>
 
 <!-- 16 -->
@@ -494,11 +632,11 @@ python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.m
       <img src="joinads-logo.png" alt="JOINADS">
       <div>
         <div class="line"><strong>JOINADS, LLC</strong></div>
-        <p>Treinamento interno · Administração de grupos Telegram<br>Empregos On-line · @rh_amanda · github.com/caionorder/telegram</p>
+        <p>Treinamento interno · Administração de grupos Telegram<br>Empregos On-line · @rh_amanda_bot · github.com/caionorder/telegram</p>
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>16 / 16</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>23 / 23</span></div>
 </section>
 
 </body>

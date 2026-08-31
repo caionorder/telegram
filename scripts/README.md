@@ -1,6 +1,6 @@
 # `rh_amanda.py`
 
-Bot de treino **@rh_amanda** no grupo **Empregos On-line**.
+Bot de treino **@rh_amanda_bot** no grupo **Empregos On-line**.
 
 Três ações, nesta ordem mental:
 
@@ -13,6 +13,8 @@ Três ações, nesta ordem mental:
 Sem `--go` o script **só imprime** o JSON. Não chama a API. Esse é o modo de treino.
 
 Python 3.9+ · só biblioteca padrão (e `curl` no `grupo-video --go`).
+
+Antes de ligar o bot no grupo: [`../docs/00-criar-bot-e-canal.md`](../docs/00-criar-bot-e-canal.md) (BotFather + grupo fechado).
 
 ---
 

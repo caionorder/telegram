@@ -1,6 +1,6 @@
 # 01 — Visão geral
 
-Grupo privado **Empregos On-line**. Bot **@rh_amanda** (Amanda, RH). JOINADS, LLC.
+Grupo privado **Empregos On-line**. Bot **@rh_amanda_bot** (Amanda, RH). JOINADS, LLC.
 
 ## Peças
 
@@ -17,8 +17,8 @@ Grupo privado **Empregos On-line**. Bot **@rh_amanda** (Amanda, RH). JOINADS, LL
 Anúncio de vaga
   → candidato clica no Telegram
     → pede pra entrar em Empregos On-line
-      → @rh_amanda APROVA na hora
-      → @rh_amanda manda particular
+      → @rh_amanda_bot APROVA na hora
+      → @rh_amanda_bot manda particular
         → candidato já está no grupo
           → grupo recebe a vaga (texto / vídeo / link)
             → botão Candidatar-se / Ver vaga

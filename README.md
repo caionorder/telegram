@@ -7,9 +7,11 @@ Exemplo didático (versão light):
 | Peça | Nome |
 |------|------|
 | Grupo | **Empregos On-line** (privado) |
-| Bot | **@rh_amanda** (Amanda, RH) |
+| Bot | **@rh_amanda_bot** (Amanda, RH) |
 
-A mecânica é a mesma da operação: **aceite → particular → texto / vídeo / link no grupo**.
+A mecânica é a mesma da operação: **criar bot e grupo → aceite → particular → texto / vídeo / link no grupo**.
+
+Setup (BotFather + grupo fechado): [`docs/00-criar-bot-e-canal.md`](docs/00-criar-bot-e-canal.md)
 
 ---
 
@@ -38,11 +40,12 @@ PDF institucional: [`JOINADS-Treinamento-Admin-Grupos.pdf`](JOINADS-Treinamento-
 ```
 telegram/
 ├── README.md                                 ← você está aqui
-├── JOINADS-Treinamento-Admin-Grupos.pdf      ← 16 slides, identidade JOINADS
+├── JOINADS-Treinamento-Admin-Grupos.pdf      ← 23 slides, identidade JOINADS
 ├── apresentacao/
 │   ├── slides.html                           ← mesmo deck, pra projetar
 │   └── exportar-pdf.sh
 ├── docs/                                     ← texto completo, um tema por arquivo
+│   ├── 00-criar-bot-e-canal.md
 │   ├── 01-visao-geral.md
 │   ├── 02-aceite-de-membros.md
 │   ├── 03-mensagem-particular.md
