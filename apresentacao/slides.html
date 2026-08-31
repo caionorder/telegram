@@ -128,6 +128,21 @@ p{margin:0}
 .cmd{font-family:"Courier New",Courier,monospace;font-size:9.4pt;line-height:1.55;background:var(--ink);color:#dbe6df;padding:5mm 5.5mm;border-radius:3mm}
 .cmd b{color:var(--green);font-weight:700}
 .dot{width:2.2mm;height:2.2mm;border-radius:50%;background:var(--green);display:inline-block;margin-right:2mm}
+.status-bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.ui{display:grid;grid-template-columns:42mm 1fr;border:.25mm solid var(--line);border-radius:3mm;overflow:hidden;min-height:92mm;background:#fff}
+.ui-side{background:var(--ink);color:#dfe8e2;padding:4mm 3.5mm}
+.ui-side .logo{font-size:9pt;font-weight:800;color:var(--green);letter-spacing:.08em;margin-bottom:4mm}
+.ui-side .item{font-size:8.5pt;padding:2.2mm 2.5mm;border-radius:1.6mm;margin-bottom:1mm;color:#9aa89f}
+.ui-side .item.on{background:#1a2a22;color:#fff;font-weight:700}
+.ui-main{padding:4.5mm 5mm;background:#f7faf7}
+.ui-h{font-size:13pt;font-weight:800;letter-spacing:-.02em;margin:0 0 1mm}
+.ui-s{font-size:8pt;color:var(--muted);margin:0 0 3.5mm}
+.ui-field{margin-bottom:2.4mm}
+.ui-lab{display:block;font-size:7pt;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.7mm}
+.ui-inp{border:.25mm solid var(--line);background:#fff;border-radius:1.4mm;padding:1.8mm 2.4mm;font-size:8.5pt;color:var(--ink)}
+.ui-btn{display:inline-block;background:var(--green);color:var(--ink);font-weight:800;font-size:8pt;padding:1.6mm 3.2mm;border-radius:1.5mm}
+.ui-btn.ghost{background:#fff;border:.25mm solid var(--line)}
+.ui-row{display:flex;justify-content:space-between;align-items:center;border:.25mm solid var(--line);border-radius:2mm;padding:2.4mm 3mm;background:#fff;margin-bottom:2mm;font-size:8.5pt}
 @media print{html,body{background:#fff}.page{margin:0}}
 </style>
 </head>
@@ -176,7 +191,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>02 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>02 / 36</span></div>
 </section>
 
 <!-- 03 BotFather -->
@@ -198,7 +213,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>03 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>03 / 36</span></div>
 </section>
 
 <!-- 04 /newbot -->
@@ -215,7 +230,7 @@ p{margin:0}
       <div class="card dark" style="min-height:58mm"><span class="n">4</span><h3 style="margin-top:4mm;color:#fff">Token</h3><p style="margin-top:2mm;font-size:11pt;color:#b7c3bc">123456:AAH… é a senha do bot</p></div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>04 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>04 / 36</span></div>
 </section>
 
 <!-- 05 token -->
@@ -235,7 +250,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>05 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>05 / 36</span></div>
 </section>
 
 <!-- 06 grupo -->
@@ -251,7 +266,7 @@ p{margin:0}
       <div class="card go" style="min-height:62mm"><span class="n">3</span><h3 style="margin-top:4mm">Aprovar membros</h3><p class="slate" style="margin-top:3mm;font-size:12pt;line-height:1.4">Liga “Aprovar novos membros”. Sem isso o pedido não chega no bot.</p></div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>06 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>06 / 36</span></div>
 </section>
 
 <!-- 07 link -->
@@ -272,7 +287,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>07 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>07 / 36</span></div>
 </section>
 
 <!-- 08 admin -->
@@ -293,7 +308,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>08 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>08 / 36</span></div>
 </section>
 
 <!-- 09 checklist -->
@@ -314,7 +329,7 @@ p{margin:0}
       <div class="card"><strong>8.</strong> --chat é -100… · dry-run ok</div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>09 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>09 / 36</span></div>
 </section>
 
 <!-- 10 -->
@@ -346,7 +361,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>10 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>10 / 36</span></div>
 </section>
 
 <!-- 04 -->
@@ -369,7 +384,7 @@ p{margin:0}
     </div>
     <p style="margin-top:8mm;font-size:14pt;color:var(--slate)">O grupo não é o produto. É o mural. O clique que vale é o botão da vaga.</p>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>11 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>11 / 36</span></div>
 </section>
 
 <!-- 05 -->
@@ -393,7 +408,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>12 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>12 / 36</span></div>
 </section>
 
 <!-- 06 -->
@@ -418,7 +433,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>13 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>13 / 36</span></div>
 </section>
 
 <!-- 07 -->
@@ -438,7 +453,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>14 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>14 / 36</span></div>
 </section>
 
 <!-- 08 -->
@@ -471,7 +486,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>15 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>15 / 36</span></div>
 </section>
 
 <!-- 09 -->
@@ -489,7 +504,7 @@ p{margin:0}
     </div>
     <p class="slate" style="margin-top:8mm;font-size:13pt">Mandou o número → para. Bloqueou → para. Ninguém dispara particular em massa sem ordem.</p>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>16 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>16 / 36</span></div>
 </section>
 
 <!-- 10 -->
@@ -521,7 +536,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>17 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>17 / 36</span></div>
 </section>
 
 <!-- 11 -->
@@ -546,7 +561,7 @@ p{margin:0}
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>18 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>18 / 36</span></div>
 </section>
 
 <!-- 12 -->
@@ -561,7 +576,7 @@ python3 scripts/rh_amanda.py <b>grupo-texto</b>  --chat -100… --texto "…" --
 python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.mp4 --titulo "…" --link "…"</div>
     <p class="slate" style="margin-top:6mm;font-size:13pt">Sem <strong>--go</strong> o script só imprime o JSON. Não manda nada. Use assim no treino.</p>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>19 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>19 / 36</span></div>
 </section>
 
 <!-- 13 -->
@@ -581,7 +596,7 @@ python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.m
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>20 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>20 / 36</span></div>
 </section>
 
 <!-- 14 -->
@@ -603,7 +618,7 @@ python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.m
       <div class="card go"><strong>9.</strong> Viu problema, avisa no minuto.</div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>21 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>21 / 36</span></div>
 </section>
 
 <!-- 15 -->
@@ -620,7 +635,7 @@ python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.m
       <div class="pend-row" style="border:.25mm solid var(--line);border-radius:3mm;margin-bottom:3.5mm"><div><div class="nm">Grupo mudo / post sem botão</div><div class="muted" style="font-size:10pt;margin-top:1mm">Avisa. Não posta nem cola link na mão</div></div></div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>22 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>22 / 36</span></div>
 </section>
 
 <!-- 16 -->
@@ -645,25 +660,238 @@ python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.m
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>23 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>23 / 36</span></div>
 </section>
 
-<!-- 24 painel -->
+<!-- 24 mapa -->
 <section class="page">
   <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Painel</span></div>
   <div class="content">
-    <div class="kicker">Visual pra o time</div>
-    <h2>http://127.0.0.1:8787</h2>
+    <div class="kicker">http://127.0.0.1:8787</div>
+    <h2>Cinco telas. Menu à esquerda.</h2>
     <div class="rule"></div>
-    <div class="g3">
-      <div class="tile dark"><span class="idx">01</span><h3>Canais</h3><p>chat_id, boas-vindas, JSON</p></div>
-      <div class="tile soft"><span class="idx" style="color:#15943b">02</span><h3>Bots</h3><p>Token do BotFather</p></div>
-      <div class="tile soft"><span class="idx" style="color:#15943b">03</span><h3>Aprovação</h3><p>Liga o processo vivo</p></div>
+    <div class="g2">
+      <div>
+        <div class="ui" style="min-height:88mm">
+          <div class="ui-side">
+            <div class="logo">JOINADS</div>
+            <div class="item on">Canais</div>
+            <div class="item">Bots</div>
+            <div class="item">JSON / envio</div>
+            <div class="item">Aprovação</div>
+            <div class="item">Logs</div>
+          </div>
+          <div class="ui-main">
+            <div class="ui-h">Menu</div>
+            <p class="ui-s">Clica à esquerda. Não tem submenu.</p>
+            <p class="slate" style="font-size:10pt;line-height:1.45">Login com admin / senha do .env. Sair no rodapé do menu.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <ul class="bullets">
+          <li><strong>Canais</strong> — o grupo. Boas-vindas + JSON + enviar.</li>
+          <li><strong>Bots</strong> — token do BotFather. Cadastra primeiro.</li>
+          <li><strong>JSON / envio</strong> — o padrão text / photo / video.</li>
+          <li><strong>Aprovação</strong> — liga o aceite automático.</li>
+          <li><strong>Logs</strong> — o que o bot fez agora há pouco.</li>
+        </ul>
+        <p class="muted" style="margin-top:5mm;font-size:11pt">Ordem: Bots → Canais → Ligar aprovação → Enviar JSON.</p>
+      </div>
     </div>
-    <p class="slate" style="margin-top:7mm;font-size:13pt">Login no .env · SQLite em data/app.sqlite · sem Postgres.</p>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>24 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>24 / 36</span></div>
 </section>
+
+<!-- 25 login -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Painel · Login</span></div>
+  <div class="content">
+    <div class="g2" style="height:100%;align-items:center">
+      <div>
+        <div class="kicker">Primeira tela</div>
+        <h2>Usuário e senha do .env</h2>
+        <div class="rule"></div>
+        <p class="slate" style="font-size:13pt;line-height:1.45">Não tem “esqueci a senha”. O padrão é <strong>admin</strong> / o que estiver em ADMIN_PASSWORD. Troca no .env antes de dar pro time.</p>
+        <p class="slate" style="margin-top:4mm;font-size:13pt;line-height:1.45">Se errar, a própria tela mostra o erro. Cookie vale 24h neste computador.</p>
+      </div>
+      <div class="card" style="padding:8mm;max-width:92mm;margin:0 auto">
+        <div class="mini-label" style="color:#15943b">JOINADS</div>
+        <h3 style="margin:3mm 0 5mm">Painel Telegram</h3>
+        <div class="ui-lab">Usuário</div><div class="ui-inp">admin</div>
+        <div class="ui-lab" style="margin-top:3mm">Senha</div><div class="ui-inp">••••••••</div>
+        <div class="ui-btn" style="margin-top:4mm;width:100%;text-align:center">Entrar</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>25 / 36</span></div>
+</section>
+
+<!-- 26 bots -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Painel · Bots</span></div>
+  <div class="content">
+    <div class="kicker">Cadastra o BotFather aqui</div>
+    <h2>Tela Bots — o que cada campo é</h2>
+    <div class="rule"></div>
+    <div class="g2">
+      <div class="ui" style="min-height:95mm">
+        <div class="ui-side"><div class="logo">JOINADS</div><div class="item">Canais</div><div class="item on">Bots</div><div class="item">JSON / envio</div><div class="item">Aprovação</div><div class="item">Logs</div></div>
+        <div class="ui-main">
+          <div class="ui-h">Bots</div>
+          <p class="ui-s">Token do BotFather. Username termina em bot.</p>
+          <div class="ui-field"><div class="ui-lab">Nome</div><div class="ui-inp">Amanda RH</div></div>
+          <div class="ui-field"><div class="ui-lab">Username</div><div class="ui-inp">@rh_amanda_bot</div></div>
+          <div class="ui-field"><div class="ui-lab">Token</div><div class="ui-inp">123456789:AAH••••</div></div>
+          <div class="ui-btn">Salvar bot</div>
+        </div>
+      </div>
+      <div>
+        <ul class="bullets">
+          <li><strong>Nome</strong> — só pra você achar na lista. “Amanda RH”.</li>
+          <li><strong>Username</strong> — o @ do Telegram. Tem que terminar em bot.</li>
+          <li><strong>Token</strong> — a senha que o BotFather gerou. Não compartilha.</li>
+          <li><strong>Excluir</strong> — some da lista. Canais desse bot quebram.</li>
+        </ul>
+        <p class="muted" style="margin-top:5mm;font-size:11pt">Cadastre o bot <strong>antes</strong> do canal. O canal escolhe o bot num select.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>26 / 36</span></div>
+</section>
+
+<!-- 27 canais lista -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Painel · Canais</span></div>
+  <div class="content">
+    <div class="kicker">O grupo em uma linha</div>
+    <h2>Tela Canais — a lista</h2>
+    <div class="rule"></div>
+    <div class="ui" style="min-height:88mm;grid-template-columns:42mm 1fr">
+      <div class="ui-side"><div class="logo">JOINADS</div><div class="item on">Canais</div><div class="item">Bots</div><div class="item">JSON / envio</div><div class="item">Aprovação</div><div class="item">Logs</div></div>
+      <div class="ui-main">
+        <div class="ui-h">Canais <span class="ui-btn" style="float:right">Novo canal</span></div>
+        <p class="ui-s">Um canal = chat_id + bot + boas-vindas + JSON.</p>
+        <div class="ui-row"><div><strong>Empregos On-line</strong><div class="muted">-1001234567890 · @rh_amanda_bot</div></div><div><span class="ui-btn">Enviar JSON agora</span> <span class="ui-btn ghost">Editar</span></div></div>
+        <div class="ui-row"><div><strong>Vagas SP</strong><div class="muted">-1009876543210 · @rh_amanda_bot</div></div><div><span class="ui-btn">Enviar JSON agora</span> <span class="ui-btn ghost">Editar</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>27 / 36</span></div>
+</section>
+
+<!-- 28 form canal -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Painel · Canais</span></div>
+  <div class="content">
+    <div class="kicker">Novo canal / Editar</div>
+    <h2>O que cada campo faz</h2>
+    <div class="rule"></div>
+    <div class="g2">
+      <div>
+        <div class="ui-field"><div class="ui-lab">Nome do canal/grupo</div><div class="ui-inp">Empregos On-line</div><p class="muted" style="font-size:8.5pt;margin-top:1mm">Só rótulo no painel. Não muda o Telegram.</p></div>
+        <div class="ui-field"><div class="ui-lab">chat_id (−100…)</div><div class="ui-inp">-1001234567890</div><p class="muted" style="font-size:8.5pt;margin-top:1mm">ID numérico do grupo privado. Sem isso o bot não acha o chat.</p></div>
+        <div class="ui-field"><div class="ui-lab">Bot</div><div class="ui-inp">Amanda RH (@rh_amanda_bot)</div><p class="muted" style="font-size:8.5pt;margin-top:1mm">Quem aprova, manda DM e publica. Vem da tela Bots.</p></div>
+      </div>
+      <div>
+        <div class="ui-field"><div class="ui-lab">Boas-vindas (use {name})</div><div class="ui-inp" style="min-height:22mm">Oi, {name}! Sou a Amanda do RH. Sua entrada já foi aprovada…</div><p class="muted" style="font-size:8.5pt;margin-top:1mm">{name} vira o primeiro nome de quem pediu. É o particular.</p></div>
+        <div class="ui-field"><div class="ui-lab">JSON (arquivo ou URL)</div><div class="ui-inp">content/vagas.exemplo.json</div><p class="muted" style="font-size:8.5pt;margin-top:1mm">O que sobe no grupo quando clica Enviar JSON agora. Arquivo no repo ou https://…</p></div>
+        <p class="slate" style="margin-top:3mm;font-size:11pt"><strong>Enviar JSON agora</strong> lê esse arquivo e publica text / photo / video com botão. Não espera horário.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>28 / 36</span></div>
+</section>
+
+<!-- 29 json tela -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Painel · JSON / envio</span></div>
+  <div class="content">
+    <div class="kicker">Tela de lembrete</div>
+    <h2>JSON / envio — não cadastra nada</h2>
+    <div class="rule"></div>
+    <div class="g2">
+      <div class="ui" style="min-height:88mm">
+        <div class="ui-side"><div class="logo">JOINADS</div><div class="item">Canais</div><div class="item">Bots</div><div class="item on">JSON / envio</div><div class="item">Aprovação</div><div class="item">Logs</div></div>
+        <div class="ui-main">
+          <div class="ui-h">JSON / envio</div>
+          <p class="ui-s">O canal aponta pra um arquivo ou URL. Todo post leva botão.</p>
+          <p class="slate" style="font-size:10pt;line-height:1.5">Exemplo: content/vagas.exemplo.json<br>Tipos: text · photo · video<br>Todos com buttons[].url</p>
+        </div>
+      </div>
+      <div>
+        <p class="slate" style="font-size:13pt;line-height:1.45">Essa tela <strong>não dispara</strong> envio. É o manual rápido do padrão.</p>
+        <p class="slate" style="margin-top:4mm;font-size:13pt;line-height:1.45">Pra publicar: vai em <strong>Canais</strong> → <strong>Enviar JSON agora</strong> na linha daquele grupo.</p>
+        <p class="slate" style="margin-top:4mm;font-size:13pt;line-height:1.45">Sem botão no JSON, o painel recusa o post.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>29 / 36</span></div>
+</section>
+
+<!-- 30 aprovacao tela -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Painel · Aprovação</span></div>
+  <div class="content">
+    <div class="kicker">Aceite sozinho</div>
+    <h2>Tela Aprovação — dois botões</h2>
+    <div class="rule"></div>
+    <div class="g2">
+      <div class="ui" style="min-height:88mm">
+        <div class="ui-side"><div class="logo">JOINADS</div><div class="item">Canais</div><div class="item">Bots</div><div class="item">JSON / envio</div><div class="item on">Aprovação</div><div class="item">Logs</div></div>
+        <div class="ui-main">
+          <div class="ui-h">Aprovação automática</div>
+          <p class="ui-s">Processo vivo. Não é cron de 1 minuto.</p>
+          <div class="ui-row"><span style="color:#15943b;font-weight:800">LIGADO · polling @rh_amanda_bot</span></div>
+          <div style="margin-top:4mm"><span class="ui-btn">Ligar aprovação</span> <span class="ui-btn ghost">Desligar</span></div>
+        </div>
+      </div>
+      <div>
+        <ul class="bullets">
+          <li><strong>Ligar</strong> — o painel passa a escutar pedidos. Aceita na hora e manda a boas-vindas daquele canal.</li>
+          <li><strong>Desligar</strong> — para. Gente nova fica na fila até ligar de novo (ou aprovar na mão no Telegram).</li>
+          <li><strong>Status</strong> — parado / ligando / polling @bot.</li>
+        </ul>
+        <p class="muted" style="margin-top:5mm;font-size:11pt">Fechou a janela do python = desligou. Por isso LaunchAgent / Agendador no login.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>30 / 36</span></div>
+</section>
+
+<!-- 31 logs -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Painel · Logs</span></div>
+  <div class="content">
+    <div class="kicker">O que aconteceu</div>
+    <h2>Tela Logs — leitura, não edição</h2>
+    <div class="rule"></div>
+    <div class="g2">
+      <div class="ui" style="min-height:88mm">
+        <div class="ui-side"><div class="logo">JOINADS</div><div class="item">Canais</div><div class="item">Bots</div><div class="item">JSON / envio</div><div class="item">Aprovação</div><div class="item on">Logs</div></div>
+        <div class="ui-main">
+          <div class="ui-h">Logs <span class="ui-btn ghost" style="float:right">Atualizar</span></div>
+          <p class="ui-s" style="margin-top:6mm">2026-08-31T11:02 · approve — João → Empregos On-line</p>
+          <p class="ui-s">2026-08-31T11:02 · welcome — DM João</p>
+          <p class="ui-s">2026-08-31T11:10 · send — video #2 → Empregos On-line</p>
+          <p class="ui-s">2026-08-31T11:10 · error — welcome Maria: Forbidden</p>
+        </div>
+      </div>
+      <div>
+        <ul class="bullets">
+          <li><strong>approve</strong> — pedido aceito.</li>
+          <li><strong>welcome</strong> — particular saiu.</li>
+          <li><strong>send</strong> — post do JSON foi pro grupo.</li>
+          <li><strong>error</strong> — Forbidden = bloqueou o bot. Normal em ~6%.</li>
+          <li><strong>daemon</strong> — ligou / desligou.</li>
+        </ul>
+        <p class="muted" style="margin-top:5mm;font-size:11pt">Atualizar puxa os últimos 80. Não apaga. Mora no SQLite.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>31 / 36</span></div>
+</section>
+
 
 <!-- 25 json -->
 <section class="page">
@@ -679,7 +907,7 @@ python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.m
     </div>
     <p class="slate" style="margin-top:7mm;font-size:13pt">Arquivo local ou URL. Exemplo: content/vagas.exemplo.json. Sem botão o envio recusa.</p>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>25 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>32 / 36</span></div>
 </section>
 
 <!-- 26 daemon -->
@@ -699,7 +927,7 @@ python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.m
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>26 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>33 / 36</span></div>
 </section>
 
 <!-- 27 keep alive -->
@@ -714,7 +942,7 @@ python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.m
       <div class="card" style="padding:7mm"><h3>Windows</h3><p class="slate" style="margin-top:3mm;font-size:13pt;line-height:1.45">Agendador → ao fazer logon → python painel\app.py. Janela pode ficar oculta.</p></div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>27 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>34 / 36</span></div>
 </section>
 
 <!-- 28 sqlite -->
@@ -726,7 +954,7 @@ python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.m
     <div class="rule"></div>
     <p class="slate" style="font-size:16pt;line-height:1.45;max-width:240mm">data/app.sqlite guarda bots, canais, offset do Telegram e logs. Não instala Postgres. Não instala Docker. Se apagar o arquivo, o cadastro zera — o Telegram não.</p>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>28 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>35 / 36</span></div>
 </section>
 
 <section class="page">
@@ -741,7 +969,7 @@ python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.m
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>29 / 29</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>36 / 36</span></div>
 </section>
 
 </body>
