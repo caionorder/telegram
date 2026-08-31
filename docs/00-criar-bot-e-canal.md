@@ -79,17 +79,19 @@ Se o Telegram recusar adicionar: BotFather → `/setjoingroups` → Enable, tent
 
 ---
 
-## 4. Pegar o ID do grupo (`--chat`)
+## 4. Achar o grupo **sem** caçar o ID
 
-Grupo privado **não** tem `@`. O ID é um número `-100…`.
+O número `-100…` o painel preenche sozinho.
 
-Com o bot **já admin**, no grupo manda qualquer mensagem (ou peça pra entrar com o link de pedido). Depois:
+1. Bot já é **admin** no grupo.
+2. Manda qualquer mensagem no grupo (o bot precisa “ver” o chat).
+3. Painel → **Bots** → **Detectar grupos** (ou Novo canal → Detectar).
+4. Escolhe o grupo **pelo nome**. O ID entra escondido.
+5. Ao salvar, o painel tenta criar o link `t.me/+` **com pedido**.
 
-```bash
-curl -s "https://api.telegram.org/bot$BOT_TOKEN/getUpdates" | python3 -m json.tool
-```
+Canal **público** (`t.me/nome` ou `@nome`): cola no campo “Resolver”.
 
-Procure `"chat": { "id": -1001234567890`. Esse valor é o `--chat` do script.
+Link **privado** `t.me/+…` o Telegram **não** entrega o ID. Por isso Detectar (bot admin + uma mensagem), não o link.
 
 ---
 

@@ -13,7 +13,7 @@ Sim: um visual pra o time cadastrar canal, bot, boas-vindas e JSON. Sem Postgres
 
 ## Telas
 
-1. **Canais** — nome, chat_id −100…, bot, texto de boas-vindas (`{name}`), URL/arquivo JSON, enviar agora
+1. **Canais** — escolhe o grupo **pelo nome** (Detectar). Não cola ID. Boas-vindas `{name}` + JSON. Enviar agora. Ao salvar, gera o `t.me/+` com pedido.
 2. **Bots** — nome, @username, token
 3. **JSON / envio** — o padrão dos três tipos
 4. **Aprovação** — liga/desliga o daemon (getUpdates)

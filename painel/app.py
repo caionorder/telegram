@@ -54,9 +54,10 @@ SECRET = hashlib.sha256((ADMIN_USER + ":" + ADMIN_PASSWORD).encode()).digest()
 
 def db() -> sqlite3.Connection:
     DATA.mkdir(parents=True, exist_ok=True)
-    con = sqlite3.connect(DB, check_same_thread=False)
+    con = sqlite3.connect(DB, check_same_thread=False, timeout=10)
     con.row_factory = sqlite3.Row
     con.execute("PRAGMA foreign_keys = ON")
+    con.execute("PRAGMA journal_mode=WAL")
     return con
 
 
@@ -93,8 +94,19 @@ def init_db() -> None:
             channel_id INTEGER,
             detail TEXT NOT NULL DEFAULT ''
         );
+        CREATE TABLE IF NOT EXISTS discovered_chats (
+            bot_id INTEGER NOT NULL,
+            chat_id TEXT NOT NULL,
+            title TEXT NOT NULL DEFAULT '',
+            chat_type TEXT NOT NULL DEFAULT '',
+            seen_at TEXT NOT NULL,
+            PRIMARY KEY (bot_id, chat_id)
+        );
         """
     )
+    cols = [r[1] for r in con.execute("PRAGMA table_info(channels)").fetchall()]
+    if "invite_link" not in cols:
+        con.execute("ALTER TABLE channels ADD COLUMN invite_link TEXT NOT NULL DEFAULT ''")
     con.commit()
     con.close()
 
@@ -154,6 +166,97 @@ def tg(token: str, method: str, payload: dict, timeout: int = 25) -> dict:
         return {"ok": False, "description": str(e)}
 
 
+def remember_chat(bot_id: int, chat: dict) -> None:
+    if not chat or chat.get("id") is None:
+        return
+    if chat.get("type") not in ("group", "supergroup", "channel"):
+        return
+    cid = str(chat["id"])
+    title = chat.get("title") or cid
+    con = db()
+    con.execute(
+        "INSERT INTO discovered_chats(bot_id, chat_id, title, chat_type, seen_at) VALUES(?,?,?,?,?) "
+        "ON CONFLICT(bot_id, chat_id) DO UPDATE SET title=excluded.title, chat_type=excluded.chat_type, seen_at=excluded.seen_at",
+        (bot_id, cid, title, chat.get("type") or "", now()),
+    )
+    con.commit()
+    con.close()
+
+
+def chat_from_update(u: dict):
+    for key in ("message", "channel_post", "my_chat_member", "chat_member", "chat_join_request"):
+        blob = u.get(key)
+        if blob and isinstance(blob.get("chat"), dict):
+            return blob["chat"]
+    return None
+
+
+def ingest_updates(bot: dict, updates: list) -> None:
+    con = db()
+    channels = rows(con, "SELECT * FROM channels WHERE bot_id=? AND active=1", (bot["id"],))
+    con.close()
+    by_chat = {str(c["chat_id"]): c for c in channels}
+    for u in updates:
+        chat = chat_from_update(u)
+        if chat:
+            remember_chat(bot["id"], chat)
+        cj = u.get("chat_join_request")
+        if not cj:
+            continue
+        chat_id = str(cj.get("chat", {}).get("id", ""))
+        user_id = cj.get("from", {}).get("id")
+        first = cj.get("from", {}).get("first_name") or ""
+        ch = by_chat.get(chat_id)
+        if not ch:
+            log_event("discover", f"pedido em {cj.get('chat', {}).get('title') or chat_id} (ainda não cadastrado)")
+            continue
+        ok = tg(bot["token"], "approveChatJoinRequest", {"chat_id": chat_id, "user_id": user_id})
+        if not ok.get("ok") and "already" not in str(ok.get("description", "")).lower():
+            log_event("error", f"approve falhou {first}: {ok.get('description')}", ch["id"])
+            continue
+        log_event("approve", f"{first} → {ch['name']}", ch["id"])
+        dm = cj.get("user_chat_id") or user_id
+        text = (ch.get("welcome_text") or "").replace("{name}", first)
+        if text:
+            w = tg(bot["token"], "sendMessage", {"chat_id": dm, "text": text})
+            if w.get("ok"):
+                log_event("welcome", f"DM {first}", ch["id"])
+            else:
+                log_event("error", f"welcome {first}: {w.get('description')}", ch["id"])
+
+
+ALLOWED = ["chat_join_request", "my_chat_member", "message", "channel_post"]
+
+
+def poll_bot(bot: dict, timeout: int = 20) -> list:
+    con = db()
+    off = con.execute("SELECT offset FROM bot_offset WHERE bot_id=?", (bot["id"],)).fetchone()
+    offset = int(off["offset"]) if off else 0
+    con.close()
+    res = tg(
+        bot["token"],
+        "getUpdates",
+        {"offset": offset, "timeout": timeout, "allowed_updates": ALLOWED},
+        timeout=timeout + 15,
+    )
+    if not res.get("ok"):
+        log_event("error", f"getUpdates {bot['username']}: {res.get('description')}")
+        return []
+    updates = res.get("result") or []
+    if updates:
+        max_id = max(int(u.get("update_id", 0)) for u in updates) + 1
+        con = db()
+        con.execute(
+            "INSERT INTO bot_offset(bot_id, offset) VALUES(?,?) "
+            "ON CONFLICT(bot_id) DO UPDATE SET offset=excluded.offset",
+            (bot["id"], max_id),
+        )
+        con.commit()
+        con.close()
+        ingest_updates(bot, updates)
+    return updates
+
+
 # ── daemon ──────────────────────────────────────────────────────────────────
 
 _daemon_lock = threading.Lock()
@@ -179,68 +282,8 @@ def daemon_loop() -> None:
             time.sleep(3)
             continue
         for bot in bots:
-            con = db()
-            off = con.execute(
-                "SELECT offset FROM bot_offset WHERE bot_id=?", (bot["id"],)
-            ).fetchone()
-            offset = int(off["offset"]) if off else 0
-            con.close()
             _daemon_status = f"ligado · polling @{bot['username'].lstrip('@')}"
-            res = tg(
-                bot["token"],
-                "getUpdates",
-                {
-                    "offset": offset,
-                    "timeout": 20,
-                    "allowed_updates": ["chat_join_request"],
-                },
-                timeout=35,
-            )
-            if not res.get("ok"):
-                log_event("error", f"getUpdates {bot['username']}: {res.get('description')}")
-                time.sleep(2)
-                continue
-            updates = res.get("result") or []
-            max_id = offset
-            by_chat = {str(c["chat_id"]): c for c in channels if c["bot_id"] == bot["id"]}
-            for u in updates:
-                max_id = max(max_id, int(u.get("update_id", 0)) + 1)
-                cj = u.get("chat_join_request")
-                if not cj:
-                    continue
-                chat_id = str(cj.get("chat", {}).get("id", ""))
-                user_id = cj.get("from", {}).get("id")
-                first = cj.get("from", {}).get("first_name") or ""
-                ch = by_chat.get(chat_id)
-                if not ch:
-                    log_event("error", f"pedido de chat {chat_id} sem canal cadastrado")
-                    continue
-                ok = tg(
-                    bot["token"],
-                    "approveChatJoinRequest",
-                    {"chat_id": chat_id, "user_id": user_id},
-                )
-                if not ok.get("ok") and "already" not in str(ok.get("description", "")).lower():
-                    log_event("error", f"approve falhou {first}: {ok.get('description')}", ch["id"])
-                    continue
-                log_event("approve", f"{first} → {ch['name']}", ch["id"])
-                dm = cj.get("user_chat_id") or user_id
-                text = (ch.get("welcome_text") or "").replace("{name}", first)
-                if text:
-                    w = tg(bot["token"], "sendMessage", {"chat_id": dm, "text": text})
-                    if w.get("ok"):
-                        log_event("welcome", f"DM {first}", ch["id"])
-                    else:
-                        log_event("error", f"welcome {first}: {w.get('description')}", ch["id"])
-            if max_id != offset:
-                con = db()
-                con.execute(
-                    "INSERT INTO bot_offset(bot_id, offset) VALUES(?,?) "
-                    "ON CONFLICT(bot_id) DO UPDATE SET offset=excluded.offset",
-                    (bot["id"], max_id),
-                )
-                con.commit()
-                con.close()
+            poll_bot(bot, timeout=20)
 
 
 def start_daemon() -> None:
@@ -257,6 +300,80 @@ def stop_daemon() -> None:
     global _daemon_on
     with _daemon_lock:
         _daemon_on = False
+
+
+def listed_chats(bot_id: int) -> list:
+    con = db()
+    found = rows(
+        con,
+        "SELECT chat_id, title, chat_type, seen_at FROM discovered_chats WHERE bot_id=? ORDER BY seen_at DESC",
+        (bot_id,),
+    )
+    con.close()
+    return found
+
+
+def discover_bot(bot_id: int) -> list:
+    """Cata grupos onde o bot já entrou. Sem o ID — o usuário só escolhe o nome."""
+    con = db()
+    bot = con.execute("SELECT * FROM bots WHERE id=?", (bot_id,)).fetchone()
+    con.close()
+    if not bot:
+        raise ValueError("Bot não existe")
+    bot = dict(bot)
+    if not _daemon_on:
+        poll_bot(bot, timeout=2)
+    found = listed_chats(bot_id)
+    log_event("discover", f"{bot['username']}: {len(found)} grupo(s) visto(s)")
+    return found
+
+
+def resolve_link(bot_id: int, link: str) -> dict:
+    """@publico ou t.me/nome público. Link t.me/+ privado não tem ID — usa Detectar."""
+    con = db()
+    bot = con.execute("SELECT * FROM bots WHERE id=?", (bot_id,)).fetchone()
+    con.close()
+    if not bot:
+        raise ValueError("Bot não existe")
+    raw = (link or "").strip()
+    if not raw:
+        raise ValueError("Cola o @ ou o t.me/ do canal público")
+    if "t.me/+" in raw or "telegram.me/+" in raw:
+        raise ValueError(
+            "Link t.me/+ (privado) não entrega o ID. Coloca o bot como admin no grupo, "
+            "manda uma mensagem lá, depois Detectar grupos — aparece o nome na lista."
+        )
+    handle = raw
+    handle = handle.replace("https://", "").replace("http://", "")
+    handle = handle.replace("t.me/", "").replace("telegram.me/", "").strip("/")
+    if not handle.startswith("@"):
+        handle = "@" + handle
+    res = tg(bot["token"], "getChat", {"chat_id": handle})
+    if not res.get("ok"):
+        raise ValueError(res.get("description") or "Não achei esse chat. Bot é admin?")
+    chat = res["result"]
+    remember_chat(bot["id"], chat)
+    return {
+        "chat_id": str(chat["id"]),
+        "title": chat.get("title") or handle,
+        "chat_type": chat.get("type") or "",
+    }
+
+
+def make_join_link(bot_id: int, chat_id: str) -> str:
+    con = db()
+    bot = con.execute("SELECT * FROM bots WHERE id=?", (bot_id,)).fetchone()
+    con.close()
+    if not bot:
+        return ""
+    res = tg(
+        bot["token"],
+        "createChatInviteLink",
+        {"chat_id": chat_id, "creates_join_request": True, "name": "joinads"},
+    )
+    if res.get("ok"):
+        return (res.get("result") or {}).get("invite_link") or ""
+    return ""
 
 
 # ── JSON send ───────────────────────────────────────────────────────────────
@@ -431,6 +548,10 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send_json(
                     200, {"ok": True, "on": _daemon_on, "status": _daemon_status}
                 )
+            if path == "/api/discovered":
+                q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+                bot_id = int((q.get("bot_id") or ["0"])[0])
+                return self.send_json(200, {"ok": True, "chats": listed_chats(bot_id)})
         finally:
             con.close()
         self.send_json(404, {"ok": False, "error": "not found"})
@@ -457,9 +578,10 @@ class Handler(BaseHTTPRequestHandler):
                 con.commit()
                 return self.send_json(200, {"ok": True})
             if path == "/api/channels":
+                invite = make_join_link(int(body["bot_id"]), str(body["chat_id"]))
                 con.execute(
-                    "INSERT INTO channels(name,chat_id,bot_id,welcome_text,json_url,active,created_at) "
-                    "VALUES(?,?,?,?,?,?,?)",
+                    "INSERT INTO channels(name,chat_id,bot_id,welcome_text,json_url,active,created_at,invite_link) "
+                    "VALUES(?,?,?,?,?,?,?,?)",
                     (
                         body["name"],
                         str(body["chat_id"]),
@@ -468,10 +590,11 @@ class Handler(BaseHTTPRequestHandler):
                         body.get("json_url") or "",
                         1 if body.get("active", True) else 0,
                         now(),
+                        invite,
                     ),
                 )
                 con.commit()
-                return self.send_json(200, {"ok": True})
+                return self.send_json(200, {"ok": True, "invite_link": invite})
             if path == "/api/channels/update":
                 con.execute(
                     "UPDATE channels SET name=?, chat_id=?, bot_id=?, welcome_text=?, json_url=?, active=? WHERE id=?",
@@ -499,6 +622,18 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/api/daemon/stop":
                 stop_daemon()
                 return self.send_json(200, {"ok": True})
+            if path == "/api/discover":
+                try:
+                    chats = discover_bot(int(body["bot_id"]))
+                    return self.send_json(200, {"ok": True, "chats": chats})
+                except Exception as e:
+                    return self.send_json(400, {"ok": False, "error": str(e)})
+            if path == "/api/resolve":
+                try:
+                    chat = resolve_link(int(body["bot_id"]), body.get("link") or "")
+                    return self.send_json(200, {"ok": True, **chat})
+                except Exception as e:
+                    return self.send_json(400, {"ok": False, "error": str(e)})
         finally:
             con.close()
         self.send_json(404, {"ok": False, "error": "not found"})
