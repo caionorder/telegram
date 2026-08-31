@@ -230,14 +230,25 @@ def ingest_updates(bot: dict, updates: list) -> None:
             log_event("error", f"approve falhou {first}: {ok.get('description')}", ch["id"])
             continue
         log_event("approve", f"{first} → {ch['name']}", ch["id"])
-        dm = cj.get("user_chat_id") or user_id
+        dm = cj.get("user_chat_id")
         text = (ch.get("welcome_text") or "").replace("{name}", first)
-        if text:
-            w = tg(bot["token"], "sendMessage", {"chat_id": dm, "text": text})
-            if w.get("ok"):
-                log_event("welcome", f"DM {first}", ch["id"])
-            else:
-                log_event("error", f"welcome {first}: {w.get('description')}", ch["id"])
+        if not text:
+            continue
+        if not dm:
+            log_event(
+                "error",
+                f"welcome {first}: sem user_chat_id. Pedido veio ANTES do bot ser admin com ‘convidar usuários’. A pessoa entra, mas o Telegram não deixa o bot puxar o particular. Pede de novo no link com o bot já admin.",
+                ch["id"],
+            )
+            continue
+        w = tg(bot["token"], "sendMessage", {"chat_id": dm, "text": text})
+        if w.get("ok"):
+            log_event("welcome", f"DM {first}", ch["id"])
+        else:
+            desc = str(w.get("description") or "")
+            if "initiate conversation" in desc.lower():
+                desc += " — Telegram bloqueia o 1º particular se o pedido não trouxe user_chat_id (bot precisa ser admin ANTES do pedido)."
+            log_event("error", f"welcome {first}: {desc}", ch["id"])
 
 
 ALLOWED = ["chat_join_request", "my_chat_member", "message", "channel_post"]
