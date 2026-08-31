@@ -65,13 +65,18 @@
         <div class="top">
           <div>
             <h2>JSON / envio</h2>
-            <p class="sub">O canal aponta pra um arquivo ou URL. Nos horários o painel lê de novo e publica. Sem o painel aberto, a agenda não roda.</p>
+            <p class="sub">Horários no canal. O cron do sistema acorda o tick mesmo com o painel fechado.</p>
           </div>
           <button class="btn btn-ghost" type="button" id="btn-refresh-agenda">Atualizar agenda</button>
         </div>
-        <div class="card" style="margin-bottom:12px">
-          <p>Tipos: <span class="mono">text</span> · <span class="mono">photo</span> · <span class="mono">video</span> — todos com <span class="mono">buttons[].url</span></p>
-          <p class="muted">Exemplo: <span class="mono">content/vagas.exemplo.json</span> ou uma URL. Troca o JSON que o próximo horário já pega o novo.</p>
+        <div class="card" style="margin-bottom:12px" id="cron-box">
+          <p><strong>Cron do sistema</strong></p>
+          <p class="muted" id="cron-status">—</p>
+          <div class="actions">
+            <button class="btn btn-primary" type="button" id="btn-cron-on">Instalar no sistema</button>
+            <button class="btn btn-ghost" type="button" id="btn-cron-off">Remover do sistema</button>
+          </div>
+          <p class="muted">Mac: LaunchAgent a cada 1 min. Windows: Agendador. Os horários 08,11,14… continuam no canal. O cron só pergunta “é hora?”.</p>
         </div>
         <div class="card" id="list-agenda"><p class="muted">Carregando…</p></div>
       </section>

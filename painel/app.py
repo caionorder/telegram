@@ -647,7 +647,12 @@ class Handler(BaseHTTPRequestHandler):
                     200, {"ok": True, "on": _daemon_on, "status": _daemon_status}
                 )
             if path == "/api/agenda":
-                return self.send_json(200, {"ok": True, "channels": agenda_status()})
+                try:
+                    from syscron import status as cron_status
+                    cron = cron_status()
+                except Exception as e:
+                    cron = {"installed": False, "how": "", "detail": str(e)}
+                return self.send_json(200, {"ok": True, "channels": agenda_status(), "cron": cron})
             if path == "/api/discovered":
                 q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
                 bot_id = int((q.get("bot_id") or ["0"])[0])
@@ -736,6 +741,18 @@ class Handler(BaseHTTPRequestHandler):
                 try:
                     chat = resolve_link(int(body["bot_id"]), body.get("link") or "")
                     return self.send_json(200, {"ok": True, **chat})
+                except Exception as e:
+                    return self.send_json(400, {"ok": False, "error": str(e)})
+            if path == "/api/agenda/install":
+                try:
+                    from syscron import install as cron_install
+                    return self.send_json(200, {"ok": True, "cron": cron_install()})
+                except Exception as e:
+                    return self.send_json(400, {"ok": False, "error": str(e)})
+            if path == "/api/agenda/uninstall":
+                try:
+                    from syscron import uninstall as cron_uninstall
+                    return self.send_json(200, {"ok": True, "cron": cron_uninstall()})
                 except Exception as e:
                     return self.send_json(400, {"ok": False, "error": str(e)})
         finally:

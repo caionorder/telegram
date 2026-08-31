@@ -271,8 +271,15 @@ async function loadAgenda() {
   const el = $("#list-agenda");
   if (!el) return;
   const d = await api("/api/agenda");
+  const cron = d.cron || {};
+  const st = $("#cron-status");
+  if (st) {
+    st.textContent = cron.installed
+      ? "Instalado: " + (cron.how || "") + (cron.detail ? " · " + cron.detail : "")
+      : "Não instalado. Sem isso a agenda só roda com o painel aberto.";
+  }
   const list = d.channels || [];
-  if (!list.length) { el.innerHTML = "<p class='muted'>Nenhum canal. A agenda se configura em Canais → Editar.</p>"; return; }
+  if (!list.length) { el.innerHTML = "<p class='muted'>Nenhum canal. A agenda se configura em Canais → Editar (horários + liga).</p>"; return; }
   el.innerHTML = list.map(c => `
     <div class="row" style="margin-bottom:10px">
       <div>
@@ -284,6 +291,16 @@ async function loadAgenda() {
     </div>`).join("");
 }
 $("#btn-refresh-agenda") && ($("#btn-refresh-agenda").onclick = loadAgenda);
+$("#btn-cron-on") && ($("#btn-cron-on").onclick = async () => {
+  const d = await api("/api/agenda/install", {method:"POST", body:{}});
+  if (!d.ok) return alert(d.error || "Não instalei");
+  loadAgenda();
+});
+$("#btn-cron-off") && ($("#btn-cron-off").onclick = async () => {
+  const d = await api("/api/agenda/uninstall", {method:"POST", body:{}});
+  if (!d.ok) return alert(d.error || "Não removi");
+  loadAgenda();
+});
 
 async function boot() {
   await loadBots();

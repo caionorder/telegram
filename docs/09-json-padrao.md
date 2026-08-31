@@ -56,6 +56,6 @@ Ou hospeda o mesmo JSON e cola a URL.
 2. Publica os posts com botão
 3. Marca a hora como enviada. Não manda de novo na mesma hora.
 
-O processo é o **mesmo** `python3 painel/app.py`. Sem o painel aberto, a agenda **não** roda. LaunchAgent / Agendador no login mantém isso vivo.
+O processo do painel também dispara se estiver aberto. Com o **cron do sistema** instalado (JSON / envio → Instalar no sistema), o tick roda a cada minuto **mesmo com o painel fechado**. Horários continuam no canal. O cron só pergunta “é essa hora?”.
 
 Uma vez por canal por hora. “Enviar agora” não gasta o slot da agenda.
