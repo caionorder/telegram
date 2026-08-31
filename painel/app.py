@@ -623,6 +623,8 @@ class Handler(BaseHTTPRequestHandler):
             return self.send_file(STATIC / "app.js", "application/javascript; charset=utf-8")
         if path == "/styles.css":
             return self.send_file(STATIC / "styles.css", "text/css; charset=utf-8")
+        if path == "/logo.png":
+            return self.send_file(ROOT / "brand" / "joinads-logo.png", "image/png")
         if path == "/api/me":
             return self.send_json(200, {"ok": self.auth(), "user": ADMIN_USER if self.auth() else None})
         if not self.auth():

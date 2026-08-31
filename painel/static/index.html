@@ -11,9 +11,9 @@
 
   <div id="view-login" class="login hidden">
     <form class="login-card" id="form-login">
-      <svg class="brand" viewBox="0 0 160 28" aria-hidden="true"><text x="0" y="22" fill="#3CF26B" font-family="Arial" font-size="22" font-weight="800">JOINADS</text></svg>
+      <img class="logo" src="/logo.png" alt="JOINADS">
       <h1>Painel Telegram</h1>
-      <p>Uso interno. SQLite local. Não precisa de banco externo.</p>
+      <p>Interno. SQLite neste computador. Usuário e senha vêm do .env.</p>
       <div class="err" id="login-err" role="alert"></div>
       <label for="user">Usuário</label>
       <input id="user" name="user" autocomplete="username" required>
@@ -25,85 +25,123 @@
 
   <div id="view-app" class="app hidden">
     <aside class="side">
-      <svg class="brand" viewBox="0 0 160 28" aria-hidden="true"><text x="0" y="22" fill="#3CF26B" font-family="Arial" font-size="22" font-weight="800">JOINADS</text></svg>
+      <img class="logo" src="/logo.png" alt="JOINADS">
       <nav aria-label="Seções">
-        <button class="nav-btn" data-tab="canais" aria-current="page">Canais</button>
-        <button class="nav-btn" data-tab="bots">Bots</button>
-        <button class="nav-btn" data-tab="conteudo">JSON / envio</button>
-        <button class="nav-btn" data-tab="daemon">Aprovação</button>
-        <button class="nav-btn" data-tab="logs">Logs</button>
+        <button class="nav-btn" data-tab="canais" aria-current="page">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+          Canais
+        </button>
+        <button class="nav-btn" data-tab="bots">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="8" width="14" height="10" rx="2"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          Bots
+        </button>
+        <button class="nav-btn" data-tab="conteudo">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          Agenda JSON
+        </button>
+        <button class="nav-btn" data-tab="daemon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M5 12H3M21 12h-2M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2"/></svg>
+          Aprovação
+        </button>
+        <button class="nav-btn" data-tab="logs">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+          Logs
+        </button>
       </nav>
       <div class="grow"></div>
-      <button class="btn btn-ghost" type="button" id="btn-logout">Sair</button>
+      <div class="side-foot">
+        <div class="live" id="side-live"><i></i><span>aprovação parada</span></div>
+        <button class="btn btn-ghost" type="button" id="btn-logout" style="width:100%">Sair</button>
+      </div>
     </aside>
+
     <main class="main" id="main">
       <section data-panel="canais">
         <div class="top">
           <div>
+            <p class="kicker">Operação</p>
             <h2>Canais</h2>
-            <p class="sub">Um canal = chat_id + bot + texto de boas-vindas + JSON de conteúdo.</p>
+            <p class="sub">Escolhe o grupo pelo nome. Sem colar ID. Cada canal tem boas-vindas, JSON e agenda.</p>
           </div>
           <button class="btn btn-primary" type="button" id="btn-new-channel">Novo canal</button>
         </div>
-        <div id="form-channel" class="drawer hidden"></div>
-        <div class="card" id="list-channels"><p class="muted">Carregando…</p></div>
+        <div id="list-channels"></div>
       </section>
 
       <section data-panel="bots" class="hidden">
         <div class="top">
           <div>
+            <p class="kicker">BotFather</p>
             <h2>Bots</h2>
-            <p class="sub">Token do BotFather. Username termina em bot. Ex.: @rh_amanda_bot</p>
+            <p class="sub">Username termina em bot. Token não se compartilha. Detectar grupos depois que for admin.</p>
           </div>
           <button class="btn btn-primary" type="button" id="btn-new-bot">Novo bot</button>
         </div>
-        <div id="form-bot" class="drawer hidden"></div>
-        <div class="card" id="list-bots"><p class="muted">Carregando…</p></div>
+        <div id="list-bots"></div>
       </section>
 
       <section data-panel="conteudo" class="hidden">
         <div class="top">
           <div>
-            <h2>JSON / envio</h2>
-            <p class="sub">Horários no canal. O cron do sistema acorda o tick mesmo com o painel fechado.</p>
+            <p class="kicker">Envio</p>
+            <h2>Agenda JSON</h2>
+            <p class="sub">Horários no canal. Instala o cron do sistema pra enviar com o painel fechado.</p>
           </div>
-          <button class="btn btn-ghost" type="button" id="btn-refresh-agenda">Atualizar agenda</button>
+          <button class="btn btn-ghost" type="button" id="btn-refresh-agenda">Atualizar</button>
         </div>
-        <div class="card" style="margin-bottom:12px" id="cron-box">
-          <p><strong>Cron do sistema</strong></p>
-          <p class="muted" id="cron-status">—</p>
+        <div class="hero" id="cron-box" style="margin-bottom:16px">
+          <div>
+            <p class="kicker">Cron do sistema</p>
+            <h3 id="cron-title">Não instalado</h3>
+            <p class="muted" id="cron-status">Sem isso a agenda só roda com o painel aberto.</p>
+          </div>
           <div class="actions">
             <button class="btn btn-primary" type="button" id="btn-cron-on">Instalar no sistema</button>
-            <button class="btn btn-ghost" type="button" id="btn-cron-off">Remover do sistema</button>
+            <button class="btn btn-ghost" type="button" id="btn-cron-off">Remover</button>
           </div>
-          <p class="muted">Mac: LaunchAgent a cada 1 min. Windows: Agendador. Os horários 08,11,14… continuam no canal. O cron só pergunta “é hora?”.</p>
         </div>
-        <div class="card" id="list-agenda"><p class="muted">Carregando…</p></div>
+        <div id="list-agenda"></div>
       </section>
 
       <section data-panel="daemon" class="hidden">
         <div class="top">
           <div>
-            <h2>Aprovação automática</h2>
-            <p class="sub">Não é cron de 1 minuto. É um processo vivo (getUpdates). Cron/Agendador só serve pra <strong>subir de novo</strong> se o PC reiniciar.</p>
+            <p class="kicker">Aceite</p>
+            <h2>Aprovação</h2>
+            <p class="sub">Processo vivo (getUpdates). Não é cron. Liga e deixa rodando. Cron só sobe de novo se o PC reiniciar.</p>
           </div>
         </div>
-        <div class="card status-bar">
-          <span class="pill" id="daemon-pill">—</span>
-          <span class="muted" id="daemon-status"></span>
-          <button class="btn btn-primary" type="button" id="btn-daemon-on">Ligar aprovação</button>
-          <button class="btn btn-ghost" type="button" id="btn-daemon-off">Desligar</button>
+        <div class="hero">
+          <div>
+            <span class="pill off" id="daemon-pill">parado</span>
+            <h3 id="daemon-h">Aprovação parada</h3>
+            <p class="muted" id="daemon-status"></p>
+          </div>
+          <div class="actions">
+            <button class="btn btn-primary" type="button" id="btn-daemon-on">Ligar</button>
+            <button class="btn btn-ghost" type="button" id="btn-daemon-off">Desligar</button>
+          </div>
         </div>
       </section>
 
       <section data-panel="logs" class="hidden">
-        <div class="top"><div><h2>Logs</h2><p class="sub">Aprovações, DMs, envios e erros. SQLite local.</p></div>
+        <div class="top">
+          <div>
+            <p class="kicker">Histórico</p>
+            <h2>Logs</h2>
+            <p class="sub">Aprovações, DMs, envios e erros. Fica no SQLite deste PC.</p>
+          </div>
           <button class="btn btn-ghost" type="button" id="btn-refresh-logs">Atualizar</button>
         </div>
-        <div class="card" id="list-logs"></div>
+        <div class="card" style="padding:8px 18px" id="list-logs"></div>
       </section>
     </main>
   </div>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-card" id="modal-card"></div>
+  </div>
+  <div id="toast" class="toast hidden" role="status"></div>
   <script src="/app.js"></script>
 </body>
 </html>
