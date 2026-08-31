@@ -5,401 +5,500 @@
 <title>JOINADS — Administração de grupos Telegram</title>
 <style>
 :root{
-  --ink:#030b09;--slate:#2E3A47;--green:#3CF26B;--pale:#F5FBF2;--white:#FFFFFF;
+  --ink:#030b09;--slate:#2E3A47;--green:#3CF26B;--pale:#F5FBF2;--white:#fff;
   --alert:#B4533C;--muted:#657169;--line:#DDE6DF;--soft:#EDF3EF
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:#dfe5e1;color:var(--ink);
-  font-family:Arial,"Helvetica Neue",sans-serif;line-height:1.4;
+  font-family:Arial,"Helvetica Neue",sans-serif;line-height:1.35;
   -webkit-print-color-adjust:exact;print-color-adjust:exact}
 @page{size:338.67mm 190.5mm;margin:0}
 .page{position:relative;width:338.67mm;height:190.5mm;margin:0 auto 8mm;overflow:hidden;page-break-after:always;background:#fff}
 .page:last-child{page-break-after:auto}
-
 .cover{background:var(--ink);color:#fff}
-.cover:before{content:"";position:absolute;inset:-30mm -40mm auto auto;width:160mm;height:160mm;border:1px solid rgba(60,242,107,.16);border-radius:50%}
-.cover:after{content:"";position:absolute;right:-24mm;bottom:18mm;width:110mm;height:110mm;background:radial-gradient(circle,rgba(60,242,107,.16),transparent 66%);border-radius:50%}
-.cover-inner{position:relative;z-index:2;height:100%;padding:16mm 18mm 14mm;display:flex;flex-direction:column}
-.brand-logo{width:48mm;height:auto;display:block}
+.cover:before{content:"";position:absolute;inset:-28mm -38mm auto auto;width:150mm;height:150mm;border:1px solid rgba(60,242,107,.16);border-radius:50%}
+.cover:after{content:"";position:absolute;right:-22mm;bottom:16mm;width:108mm;height:108mm;background:radial-gradient(circle,rgba(60,242,107,.16),transparent 66%);border-radius:50%}
+.cover-inner{position:relative;z-index:2;height:100%;padding:16mm 18mm 13mm;display:flex;flex-direction:column}
+.brand-logo{width:46mm;height:auto;display:block}
 .eyebrow{color:var(--green);font-size:9pt;font-weight:800;letter-spacing:.22em;text-transform:uppercase}
-.cover .eyebrow{margin-top:22mm}
-.cover h1{margin:4mm 0 3mm;max-width:250mm;font-size:34pt;line-height:1.05;letter-spacing:-.035em;font-weight:780}
+.cover .eyebrow{margin-top:18mm}
+.cover h1{margin:4mm 0 3mm;font-size:36pt;line-height:1.02;letter-spacing:-.038em;font-weight:780}
 .cover .subtitle{max-width:210mm;font-size:15pt;line-height:1.35;color:#dbe6df}
 .cover-rule{width:42mm;height:1.4mm;margin:8mm 0 7mm;background:var(--green)}
 .cover-meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6mm;max-width:240mm}
 .cover-meta .m{border-top:1px solid rgba(255,255,255,.18);padding-top:3mm}
 .cover-meta .label{display:block;font-size:7.6pt;color:#93a299;text-transform:uppercase;letter-spacing:.12em;font-weight:700}
-.cover-meta strong{display:block;margin-top:1.4mm;font-size:12pt;color:#fff}
-.cover-disclaimer{margin-top:auto;max-width:230mm;padding:4.5mm 6mm;border:1px solid rgba(60,242,107,.38);border-left:1.6mm solid var(--green);background:rgba(255,255,255,.045);font-size:10pt;color:#dbe6df}
-.cover-bottom{margin-top:6mm;display:flex;justify-content:space-between;color:#87968e;font-size:8pt;letter-spacing:.06em;text-transform:uppercase}
+.cover-meta strong{display:block;margin-top:1.4mm;font-size:12.5pt;color:#fff}
+.cover-disclaimer{margin-top:auto;max-width:228mm;padding:4.5mm 6mm;border:1px solid rgba(60,242,107,.38);border-left:1.6mm solid var(--green);background:rgba(255,255,255,.045);font-size:11pt;color:#dbe6df}
+.cover-bottom{margin-top:5mm;display:flex;justify-content:space-between;color:#87968e;font-size:8pt;letter-spacing:.06em;text-transform:uppercase}
 
-.header{position:absolute;z-index:5;left:0;right:0;top:0;height:16mm;padding:4.2mm 16mm 3mm;background:var(--ink);display:flex;align-items:center;justify-content:space-between;color:#dfe8e2}
-.header img{width:32mm;height:auto}
-.header .section{font-size:8pt;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:#aebbb3}
-.footer{position:absolute;z-index:5;left:16mm;right:16mm;bottom:0;height:12mm;border-top:.25mm solid var(--line);display:flex;align-items:center;justify-content:space-between;color:#748078;font-size:7.6pt}
-.content{position:absolute;left:16mm;right:16mm;top:22mm;bottom:14mm}
-.page-kicker{color:var(--muted);font-size:8pt;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:2mm}
-h2{margin:0 0 2.5mm;font-size:22pt;line-height:1.08;letter-spacing:-.025em}
-h3{margin:0 0 2mm;font-size:12.5pt}
-p{margin:0 0 2.5mm}
-.lead{font-size:12.5pt;line-height:1.45;color:var(--slate);max-width:300mm}
-.rule{height:.7mm;width:28mm;background:var(--green);margin:3.5mm 0 5mm}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:5mm}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm}
-.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm}
-.card{border:.25mm solid var(--line);border-radius:3mm;padding:5mm;background:#fff}
-.card.soft{background:var(--pale)}
-.card.dark{background:var(--ink);border-color:var(--ink);color:#fff}
-.card.alert{border-left:1.5mm solid var(--alert)}
-.stat .value{display:block;font-size:20pt;line-height:1.05;font-weight:800;letter-spacing:-.03em}
-.stat .value.green{color:#15943b}
-.dark.stat .value{color:#fff}
-.stat .label{display:block;margin-top:2mm;font-size:8pt;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:750}
-.dark.stat .label{color:#aab8b0}
-.chip{display:inline-flex;align-items:center;gap:1.5mm;padding:1.5mm 2.8mm;border-radius:99mm;font-size:8pt;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
-.chip:before{content:"";width:1.7mm;height:1.7mm;border-radius:50%;background:currentColor}
-.chip.high{color:#176a30;background:#e4f8e8}
-.chip.medium{color:#8d412f;background:#f8e8e3}
-.chip.neutral{color:#4f5c54;background:#eef2ef}
-.insight{padding:4.5mm 5mm;border-left:1.3mm solid var(--green);background:var(--pale);border-radius:0 2.5mm 2.5mm 0;color:var(--slate);font-size:12pt;line-height:1.4}
-.insight.alert{border-color:var(--alert);background:#fbf2ef}
-.bullets{margin:0;padding:0;list-style:none}
-.bullets li{position:relative;margin:0 0 2.6mm;padding-left:5.5mm;color:var(--slate);font-size:11.5pt}
-.bullets li:before{content:"";position:absolute;left:0;top:.55em;width:1.9mm;height:1.9mm;border-radius:50%;background:var(--green);box-shadow:0 0 0 .6mm #e2f6e6}
-.bullets.alert li:before{background:var(--alert);box-shadow:0 0 0 .6mm #f4dfd8}
-.flow{display:grid;grid-template-columns:1fr 10mm 1fr 10mm 1fr 10mm 1fr;align-items:stretch;gap:0}
-.flow .node{border:.25mm solid var(--line);border-radius:3mm;padding:4mm 4.5mm;background:var(--pale)}
-.flow .node strong{display:block;font-size:11pt;margin-bottom:1mm}
-.flow .node span{display:block;font-size:9pt;color:var(--muted);line-height:1.35}
-.flow .arrow{display:flex;align-items:center;justify-content:center;color:var(--green);font-size:18pt;font-weight:800}
-.num{width:8mm;height:8mm;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--ink);color:var(--green);font-weight:800;font-size:10pt;margin-right:2.5mm}
-.mono{font-family:"Courier New",Courier,monospace;font-size:9.2pt;background:var(--soft);padding:4mm 5mm;border-radius:2.5mm;color:var(--ink);line-height:1.55;white-space:pre}
-table{width:100%;border-collapse:collapse;font-size:10pt}
-th{padding:2.6mm 3mm;background:var(--ink);color:#fff;text-align:left;font-size:8pt;text-transform:uppercase;letter-spacing:.08em}
-td{padding:2.6mm 3mm;border-bottom:.25mm solid var(--line);vertical-align:top;color:var(--slate)}
-tr:nth-child(even) td{background:#fafcfb}
-.table-wrap{border:.25mm solid var(--line);border-radius:2.5mm;overflow:hidden}
-.signature{margin-top:6mm;background:var(--ink);border-radius:3mm;padding:7mm 8mm;display:grid;grid-template-columns:50mm 1fr;gap:8mm;align-items:center;color:#fff}
-.signature img{width:44mm;height:auto}
-.signature .line{border-bottom:.25mm solid rgba(255,255,255,.35);padding-bottom:3mm;margin-bottom:2.5mm}
-.signature strong{font-size:14pt}
-.signature p{color:#b7c3bc;font-size:9.5pt;margin:0}
-.big-quote{font-size:16.5pt;line-height:1.35;font-weight:750;letter-spacing:-.015em}
-.mini-label{font-size:8pt;color:var(--muted);font-weight:800;letter-spacing:.09em;text-transform:uppercase}
+.header{position:absolute;z-index:5;left:0;right:0;top:0;height:15mm;padding:3.8mm 16mm 3mm;background:var(--ink);display:flex;align-items:center;justify-content:space-between;color:#dfe8e2}
+.header img{width:30mm;height:auto}
+.header .section{font-size:8pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#aebbb3}
+.footer{position:absolute;z-index:5;left:16mm;right:16mm;bottom:0;height:11mm;border-top:.25mm solid var(--line);display:flex;align-items:center;justify-content:space-between;color:#748078;font-size:7.6pt}
+.content{position:absolute;left:16mm;right:16mm;top:21mm;bottom:13mm}
+.kicker{color:var(--muted);font-size:8pt;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:2mm}
+h2{margin:0 0 2mm;font-size:24pt;line-height:1.06;letter-spacing:-.03em}
+h3{margin:0 0 2mm;font-size:13pt}
+p{margin:0}
+.rule{height:.7mm;width:26mm;background:var(--green);margin:3mm 0 5mm}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:6mm;align-items:stretch}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm}
+.card{border:.25mm solid var(--line);border-radius:3.2mm;padding:5mm;background:#fff}
+.soft{background:var(--pale)}
+.dark{background:var(--ink);border-color:var(--ink);color:#fff}
+.alert{border-left:1.6mm solid var(--alert)}
+.go{border-left:1.6mm solid var(--green)}
+.n{width:11mm;height:11mm;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--ink);color:var(--green);font-weight:800;font-size:13pt;flex-shrink:0}
+.n.lg{width:16mm;height:16mm;font-size:18pt}
+.muted{color:var(--muted)}
+.slate{color:var(--slate)}
+.chip{display:inline-flex;align-items:center;gap:1.4mm;padding:1.4mm 2.8mm;border-radius:99mm;font-size:8pt;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.chip:before{content:"";width:1.6mm;height:1.6mm;border-radius:50%;background:currentColor}
+.ok{color:#176a30;background:#e4f8e8}
+.no{color:#8d412f;background:#f8e8e3}
+
+/* visual journey */
+.journey{display:flex;align-items:stretch;gap:0}
+.j-step{flex:1;background:var(--pale);border:.25mm solid var(--line);padding:5mm 4.5mm;position:relative}
+.j-step:first-child{border-radius:3mm 0 0 3mm}
+.j-step:last-child{border-radius:0 3mm 3mm 0;background:var(--ink);color:#fff;border-color:var(--ink)}
+.j-step .idx{display:block;font-size:9pt;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:2mm}
+.j-step h3{font-size:13.5pt}
+.j-step p{font-size:10pt;color:var(--muted);margin-top:1.5mm;line-height:1.35}
+.j-step:last-child p{color:#b7c3bc}
+.j-arrow{width:9mm;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:20pt;font-weight:800;flex-shrink:0}
+
+/* phone */
+.phone{width:78mm;height:128mm;background:var(--ink);border-radius:6mm;padding:3mm;box-shadow:0 8mm 18mm rgba(3,11,9,.18)}
+.phone-screen{height:100%;background:#f4f7f4;border-radius:4mm;overflow:hidden;display:flex;flex-direction:column}
+.phone-bar{background:var(--ink);color:#fff;padding:3.2mm 4mm;display:flex;align-items:center;gap:3mm}
+.ava{width:8mm;height:8mm;border-radius:50%;background:var(--green);color:var(--ink);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:8pt}
+.phone-bar .who{font-size:9.5pt;font-weight:700}
+.phone-bar .sub{display:block;font-size:7pt;color:#9aa89f;font-weight:400}
+.bubble{margin:4mm;background:#fff;border-radius:0 3mm 3mm 3mm;padding:3.5mm 4mm;font-size:8.6pt;line-height:1.42;color:var(--slate);box-shadow:0 .4mm 1.2mm rgba(3,11,9,.06)}
+.bubble strong{color:var(--ink)}
+
+/* telegram group mock */
+.tg{background:#eef3ef;border-radius:3.5mm;overflow:hidden;border:.25mm solid var(--line);height:100%}
+.tg-head{background:var(--ink);color:#fff;padding:3.5mm 5mm;display:flex;align-items:center;gap:3mm}
+.tg-head .who{font-size:11pt;font-weight:700}
+.tg-head .sub{display:block;font-size:7.5pt;color:#9aa89f;font-weight:400}
+.tg-body{padding:5mm}
+.post{background:#fff;border-radius:3mm;overflow:hidden;border:.25mm solid var(--line)}
+.vid{height:42mm;background:linear-gradient(160deg,#1a2a22,#0a1612);display:flex;align-items:center;justify-content:center}
+.play{width:12mm;height:12mm;border-radius:50%;border:1.1mm solid var(--green);display:flex;align-items:center;justify-content:center}
+.play i{display:block;width:0;height:0;border-left:4.2mm solid var(--green);border-top:2.6mm solid transparent;border-bottom:2.6mm solid transparent;margin-left:1mm}
+.post-copy{padding:4mm 4.5mm 5mm}
+.post-copy h4{margin:0 0 1.5mm;font-size:12pt}
+.post-copy p{font-size:9.5pt;color:var(--muted)}
+.cta{margin-top:3.5mm;display:block;text-align:center;background:var(--green);color:var(--ink);font-weight:800;padding:2.6mm;border-radius:2mm;font-size:10pt;letter-spacing:.02em}
+
+/* pending list */
+.pend{background:#fff;border:.25mm solid var(--line);border-radius:3mm;overflow:hidden}
+.pend-h{background:var(--ink);color:#fff;padding:3mm 4.5mm;font-size:9pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.pend-row{display:flex;align-items:center;justify-content:space-between;padding:3.8mm 4.5mm;border-bottom:.25mm solid var(--line)}
+.pend-row:last-child{border:0}
+.pend-row .nm{font-weight:700}
+.pend-row .st{font-size:8.5pt;color:var(--alert);font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.btn-ok{background:var(--green);color:var(--ink);font-weight:800;border:0;border-radius:99mm;padding:1.6mm 4mm;font-size:8.5pt}
+
+.tile{padding:6mm 5.5mm;border-radius:3.2mm;min-height:58mm;display:flex;flex-direction:column}
+.tile .idx{font-size:22pt;font-weight:800;letter-spacing:-.04em;color:var(--green);margin-bottom:3mm}
+.tile h3{font-size:16pt;letter-spacing:-.02em}
+.tile p{margin-top:auto;padding-top:4mm;font-size:11pt;color:var(--muted);line-height:1.4}
+.tile.dark p{color:#b7c3bc}
+
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:2mm}
+.tl .cell{padding:5mm 4.5mm;border-top:2.2mm solid var(--line);position:relative}
+.tl .cell:first-child{border-top-color:var(--green)}
+.tl .cell.on{border-top-color:var(--green)}
+.tl .cell.wall{border-top-color:var(--alert)}
+.tl .t{display:block;font-size:18pt;font-weight:800;letter-spacing:-.03em}
+.tl .l{display:block;margin-top:2mm;font-size:11pt;font-weight:700}
+.tl .d{display:block;margin-top:1.5mm;font-size:9.5pt;color:var(--muted);line-height:1.35}
+
+.quote{font-size:20pt;line-height:1.32;font-weight:750;letter-spacing:-.02em;max-width:280mm}
+.sig{margin-top:8mm;background:var(--ink);border-radius:3mm;padding:7mm 8mm;display:grid;grid-template-columns:48mm 1fr;gap:8mm;align-items:center;color:#fff}
+.sig img{width:42mm}
+.sig .line{border-bottom:.25mm solid rgba(255,255,255,.35);padding-bottom:3mm;margin-bottom:2.5mm}
+.sig strong{font-size:14pt}
+.sig p{color:#b7c3bc;font-size:10pt}
+.cmd{font-family:"Courier New",Courier,monospace;font-size:9.4pt;line-height:1.55;background:var(--ink);color:#dbe6df;padding:5mm 5.5mm;border-radius:3mm}
+.cmd b{color:var(--green);font-weight:700}
+.dot{width:2.2mm;height:2.2mm;border-radius:50%;background:var(--green);display:inline-block;margin-right:2mm}
 @media print{html,body{background:#fff}.page{margin:0}}
 </style>
 </head>
 <body>
 
-<!-- 01 COVER -->
+<!-- 01 -->
 <section class="page cover">
   <div class="cover-inner">
     <img class="brand-logo" src="joinads-logo.png" alt="JOINADS">
-    <div class="eyebrow">Treinamento interno · Operações</div>
-    <h1>Administração de grupos<br>Telegram</h1>
-    <p class="subtitle">Aceite de membros · mensagem no particular · envio de texto, vídeo e link no grupo.</p>
+    <div class="eyebrow">Treinamento interno · 30 minutos</div>
+    <h1>Como administrar<br>um grupo no Telegram</h1>
+    <p class="subtitle">Aceitar membros. Escrever no particular. Publicar vaga no grupo.</p>
     <div class="cover-rule"></div>
     <div class="cover-meta">
-      <div class="m"><span class="label">Exemplo didático</span><strong>Empregos On-line</strong></div>
+      <div class="m"><span class="label">Grupo de treino</span><strong>Empregos On-line</strong></div>
       <div class="m"><span class="label">Bot</span><strong>@rh_amanda</strong></div>
-      <div class="m"><span class="label">Público</span><strong>Equipe JOINADS</strong></div>
+      <div class="m"><span class="label">Time</span><strong>JOINADS</strong></div>
     </div>
-    <div class="cover-disclaimer">A pessoa pede pra entrar. O bot aceita na hora. Manda o particular. O grupo recebe a vaga com botão de candidatura. Fila de pendente = alerta.</div>
+    <div class="cover-disclaimer">Pediu pra entrar → o bot aceita na hora → Amanda manda o particular → o grupo mostra a vaga com botão. Fila de gente pendente = alerta.</div>
     <div class="cover-bottom"><span>JOINADS, LLC · Confidencial</span><span>Uso interno · circulação restrita</span></div>
   </div>
 </section>
 
-<!-- 02 AGENDA -->
+<!-- 02 -->
 <section class="page">
   <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Agenda</span></div>
   <div class="content">
-    <div class="page-kicker">O que o time sai sabendo</div>
-    <h2>Três máquinas. Uma ordem.</h2>
+    <div class="kicker">O que você sai sabendo</div>
+    <h2>Três gestos. Nesta ordem.</h2>
     <div class="rule"></div>
-    <div class="grid-3">
-      <div class="card dark stat">
-        <span class="value">01</span>
-        <span class="label" style="color:#3CF26B;margin-top:4mm;display:block;font-size:12pt;letter-spacing:0;text-transform:none;font-weight:700">Aceite de membros</span>
-        <p style="color:#b7c3bc;margin-top:3mm;font-size:11pt">Pedido no link t.me/+ · aprovação na hora · ninguém na fila.</p>
+    <div class="g3">
+      <div class="tile dark">
+        <span class="idx">01</span>
+        <h3>Aceitar</h3>
+        <p>A pessoa pede. O bot deixa entrar. Ninguém espera na fila.</p>
       </div>
-      <div class="card soft stat">
-        <span class="value">02</span>
-        <span class="label" style="color:var(--ink);margin-top:4mm;display:block;font-size:12pt;letter-spacing:0;text-transform:none;font-weight:700">Particular</span>
-        <p style="color:var(--slate);margin-top:3mm;font-size:11pt">Amanda confirma a entrada e pede WhatsApp com DDI. Janela de 24h.</p>
+      <div class="tile soft">
+        <span class="idx" style="color:#15943b">02</span>
+        <h3>Escrever no particular</h3>
+        <p>Amanda confirma a entrada e pede o WhatsApp com DDI.</p>
       </div>
-      <div class="card soft stat">
-        <span class="value">03</span>
-        <span class="label" style="color:var(--ink);margin-top:4mm;display:block;font-size:12pt;letter-spacing:0;text-transform:none;font-weight:700">Envio no grupo</span>
-        <p style="color:var(--slate);margin-top:3mm;font-size:11pt">Texto, vídeo ou link + botão Candidatar-se / Ver vaga.</p>
+      <div class="tile soft">
+        <span class="idx" style="color:#15943b">03</span>
+        <h3>Publicar no grupo</h3>
+        <p>Texto, vídeo ou link. Sempre com o botão Candidatar-se.</p>
       </div>
     </div>
-    <div class="insight sp-4" style="margin-top:7mm">O grupo não é o produto. É o mural. O clique que vale é o botão da vaga.</div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC · Treinamento interno</span><span>02 / 12</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>02 / 16</span></div>
 </section>
 
-<!-- 03 PEÇAS -->
+<!-- 03 -->
 <section class="page">
   <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Peças</span></div>
   <div class="content">
-    <div class="page-kicker">Exemplo light</div>
-    <h2>Empregos On-line · @rh_amanda</h2>
+    <div class="kicker">O palco do treino</div>
+    <h2>Um grupo. Um bot. Um link.</h2>
     <div class="rule"></div>
-    <div class="table-wrap">
-      <table>
-        <tr><th style="width:42mm">Peça</th><th>Como é</th></tr>
-        <tr><td><strong>Grupo</strong></td><td>Privado. Não aparece na busca. Nome: Empregos On-line.</td></tr>
-        <tr><td><strong>Bot</strong></td><td>@rh_amanda — se apresenta como Amanda, do RH. Admin com permissão de convidar e postar.</td></tr>
-        <tr><td><strong>Aprovar membros</strong></td><td>Ligado. Sem isso o pedido não chega no bot.</td></tr>
-        <tr><td><strong>Link</strong></td><td>Só t.me/+ com pedido. O link “principal” entra direto — o bot não vê, o particular não dispara.</td></tr>
-        <tr><td><strong>Instância</strong></td><td>Um token, um bot. Segunda cópia = Telegram 409. Pedidos se perdem.</td></tr>
-      </table>
+    <div class="g3">
+      <div class="card" style="padding:6mm">
+        <div class="tg-head" style="margin:-6mm -6mm 5mm;border-radius:3mm 3mm 0 0">
+          <div class="ava">EO</div>
+          <div><span class="who">Empregos On-line</span><span class="sub">grupo privado</span></div>
+        </div>
+        <p class="slate" style="font-size:12pt;line-height:1.4">Não aparece na busca. Só entra quem tem o convite e <strong>pede</strong>.</p>
+      </div>
+      <div class="card" style="padding:6mm">
+        <div style="display:flex;align-items:center;gap:4mm;margin-bottom:4mm">
+          <div class="ava" style="width:14mm;height:14mm;font-size:12pt">A</div>
+          <div><strong style="font-size:14pt">@rh_amanda</strong><br><span class="muted">Amanda · RH</span></div>
+        </div>
+        <p class="slate" style="font-size:12pt;line-height:1.4">Admin do grupo. Aprova, fala no particular e publica a vaga.</p>
+      </div>
+      <div class="card go" style="padding:6mm">
+        <div class="chip ok" style="margin-bottom:4mm">link certo</div>
+        <h3 style="font-size:16pt;font-family:'Courier New',monospace">t.me/+…</h3>
+        <p class="slate" style="margin-top:3mm;font-size:12pt;line-height:1.4">Com pedido de aprovação. O link “principal” entra direto — o bot não vê.</p>
+      </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC · Treinamento interno</span><span>03 / 12</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>03 / 16</span></div>
 </section>
 
-<!-- 04 FUNIL -->
+<!-- 04 -->
 <section class="page">
-  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Funil</span></div>
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Jornada</span></div>
   <div class="content">
-    <div class="page-kicker">Jornada do candidato</div>
-    <h2>Do anúncio até o botão da vaga</h2>
+    <div class="kicker">Do anúncio até o clique</div>
+    <h2>O candidato anda assim</h2>
     <div class="rule"></div>
-    <div class="flow">
-      <div class="node"><strong>1. Anúncio</strong><span>Candidato clica no Telegram</span></div>
-      <div class="arrow">›</div>
-      <div class="node"><strong>2. Pedido</strong><span>Entra em espera no Empregos On-line</span></div>
-      <div class="arrow">›</div>
-      <div class="node"><strong>3. Aceite + DM</strong><span>Amanda aprova e escreve no particular</span></div>
-      <div class="arrow">›</div>
-      <div class="node"><strong>4. Vaga no grupo</strong><span>Texto / vídeo / link + Candidatar-se</span></div>
+    <div class="journey">
+      <div class="j-step"><span class="idx">1</span><h3>Vê o anúncio</h3><p>Clica no Telegram da vaga</p></div>
+      <div class="j-arrow">›</div>
+      <div class="j-step"><span class="idx">2</span><h3>Pede pra entrar</h3><p>Não entra. Fica aguardando</p></div>
+      <div class="j-arrow">›</div>
+      <div class="j-step"><span class="idx">3</span><h3>Amanda aceita</h3><p>Na hora. Sem fila</p></div>
+      <div class="j-arrow">›</div>
+      <div class="j-step"><span class="idx">4</span><h3>Recebe o particular</h3><p>Boas-vindas + WhatsApp</p></div>
+      <div class="j-arrow">›</div>
+      <div class="j-step"><span class="idx">5</span><h3>Vê a vaga</h3><p>Clica em Candidatar-se</p></div>
     </div>
-    <div class="grid-2" style="margin-top:8mm">
-      <div class="card soft">
-        <div class="mini-label">Ordem obrigatória</div>
-        <h3 style="margin-top:3mm">Aprova primeiro. Particular depois.</h3>
-        <p style="color:var(--slate);margin:0">Se o candidato bloqueou o bot, ele ainda entra. Welcome não pode barrar o aceite.</p>
-      </div>
-      <div class="card" style="border-left:1.5mm solid var(--green)">
-        <div class="mini-label">Meta</div>
-        <h3 style="margin-top:3mm">Pediu → entrou em segundos</h3>
-        <p style="color:var(--slate);margin:0">Pedido perdido não volta sozinho. Fila de pendente = dinheiro parado.</p>
-      </div>
-    </div>
+    <p style="margin-top:8mm;font-size:14pt;color:var(--slate)">O grupo não é o produto. É o mural. O clique que vale é o botão da vaga.</p>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC · Treinamento interno</span><span>04 / 12</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>04 / 16</span></div>
 </section>
 
-<!-- 05 ACEITE -->
+<!-- 05 -->
 <section class="page">
   <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">01 · Aceite</span></div>
   <div class="content">
-    <div class="page-kicker">Aprovação de membros</div>
-    <h2>Clicou no link. Não entra. Pede.</h2>
-    <div class="rule"></div>
-    <div class="grid-2">
-      <div>
-        <p class="lead">O Telegram manda o pedido pro @rh_amanda. O bot dispara duas chamadas, nesta ordem:</p>
-        <div class="mono">1. approveChatJoinRequest(chat, user)
-2. sendMessage(particular, texto da Amanda)</div>
-        <p style="margin-top:5mm;color:var(--slate)">API crua equivalente está no README e em examples/comandos.md.</p>
+    <div class="g2" style="height:100%">
+      <div style="display:flex;flex-direction:column;justify-content:center">
+        <div class="kicker">O que a pessoa vê</div>
+        <h2>Clicou.<br>Não entra.</h2>
+        <div class="rule"></div>
+        <p class="slate" style="font-size:14pt;line-height:1.45;max-width:140mm">O Telegram segura o pedido. Sem “Aprovar novos membros” ligado, esse pedido <strong>não chega</strong> no bot.</p>
       </div>
-      <div>
-        <div class="card dark" style="margin-bottom:4mm">
-          <div class="mini-label" style="color:#3CF26B">Time faz</div>
-          <ul class="bullets" style="margin-top:3mm">
-            <li style="color:#dbe6df">Nada, se estiver fluido</li>
-            <li style="color:#dbe6df">Fila de pendentes: aprova agora e avisa</li>
-          </ul>
-        </div>
-        <div class="card alert">
-          <div class="mini-label" style="color:var(--alert)">Time não faz</div>
-          <ul class="bullets alert" style="margin-top:3mm">
-            <li>Desligar “Aprovar novos membros”</li>
-            <li>Tornar público / colocar @ / revogar link</li>
-            <li>Usar o link principal (entra direto)</li>
-            <li>Subir segundo bot no mesmo token</li>
-          </ul>
+      <div style="display:flex;align-items:center">
+        <div class="pend" style="width:100%">
+          <div class="pend-h">Pedidos pendentes · Empregos On-line</div>
+          <div class="pend-row"><div><div class="nm">João Silva</div><div class="st">aguardando</div></div><span class="btn-ok">Aprovar</span></div>
+          <div class="pend-row"><div><div class="nm">Maria Costa</div><div class="st">aguardando</div></div><span class="btn-ok">Aprovar</span></div>
+          <div class="pend-row"><div><div class="nm">Pedro Lima</div><div class="st">aguardando</div></div><span class="btn-ok">Aprovar</span></div>
         </div>
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC · Treinamento interno</span><span>05 / 12</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>05 / 16</span></div>
 </section>
 
-<!-- 06 PARTICULAR -->
+<!-- 06 -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">01 · Aceite</span></div>
+  <div class="content">
+    <div class="kicker">Ordem obrigatória</div>
+    <h2>Primeiro deixa entrar. Depois fala.</h2>
+    <div class="rule"></div>
+    <div class="g2">
+      <div class="dark" style="border-radius:3.2mm;padding:8mm;min-height:78mm">
+        <div class="n lg">1</div>
+        <h3 style="margin:5mm 0 2mm;font-size:20pt;color:#fff">Aprovar</h3>
+        <p style="color:#b7c3bc;font-size:13pt;line-height:1.4">approveChatJoinRequest<br>chat + user</p>
+        <p style="margin-top:8mm;color:var(--green);font-size:12pt;font-weight:700">Prioridade absoluta</p>
+      </div>
+      <div class="soft" style="border-radius:3.2mm;padding:8mm;min-height:78mm">
+        <div class="n lg">2</div>
+        <h3 style="margin:5mm 0 2mm;font-size:20pt">Particular</h3>
+        <p class="slate" style="font-size:13pt;line-height:1.4">sendMessage<br>texto da Amanda</p>
+        <p style="margin-top:8mm;color:var(--muted);font-size:12pt">Se a pessoa bloqueou o bot, ela <strong style="color:var(--ink)">ainda entra</strong>.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>06 / 16</span></div>
+</section>
+
+<!-- 07 -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">01 · Aceite</span></div>
+  <div class="content">
+    <div class="g2" style="height:100%">
+      <div class="go" style="border-radius:3.2mm;padding:7mm;background:var(--pale)">
+        <span class="chip ok">time faz</span>
+        <h3 style="margin:5mm 0 6mm;font-size:20pt">Quase nada</h3>
+        <p class="slate" style="font-size:14pt;line-height:1.5">Se o aceite está fluido, o bot trabalha sozinho.<br><br>Viu gente na fila? <strong>Aprova agora</strong> e avisa. Pedido perdido não volta sozinho.</p>
+      </div>
+      <div class="alert" style="border-radius:3.2mm;padding:7mm;background:#fbf2ef">
+        <span class="chip no">time não faz</span>
+        <h3 style="margin:5mm 0 6mm;font-size:20pt">Não mexe nisso</h3>
+        <p class="slate" style="font-size:14pt;line-height:1.55">Desligar “Aprovar novos membros”<br>Tornar o grupo público<br>Compartilhar o link principal<br>Subir segundo bot no mesmo token</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>07 / 16</span></div>
+</section>
+
+<!-- 08 -->
 <section class="page">
   <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">02 · Particular</span></div>
   <div class="content">
-    <div class="page-kicker">Mensagem da Amanda</div>
-    <h2>Boas-vindas no mesmo segundo</h2>
-    <div class="rule"></div>
-    <div class="grid-2">
-      <div class="card soft" style="padding:6mm">
-        <div class="mini-label">Modelo</div>
-        <p style="margin-top:3mm;font-size:12pt;line-height:1.45;color:var(--ink)">Oi, João!<br><br>Sou a Amanda do RH. Sua entrada no grupo Empregos On-line já foi aprovada — você já está dentro.<br><br>Pra eu te avisar das próximas vagas no WhatsApp, me manda seu número com DDI.<br><br>+55 11 99391-1111 · +595 981 123456</p>
-      </div>
+    <div class="g2" style="height:100%;align-items:center">
       <div>
-        <div class="table-wrap">
-          <table>
-            <tr><th>Quando</th><th>O que</th></tr>
-            <tr><td>Na hora</td><td>Boas-vindas</td></tr>
-            <tr><td>12h</td><td>Toque leve, se não mandou o número</td></tr>
-            <tr><td>23h</td><td>Urgência — menos de 1h</td></tr>
-            <tr><td>24h</td><td>Muro. Telegram fecha o particular</td></tr>
-          </table>
+        <div class="kicker">O que a Amanda manda</div>
+        <h2>Boas-vindas<br>no mesmo segundo</h2>
+        <div class="rule"></div>
+        <p class="slate" style="font-size:14pt;line-height:1.45;max-width:140mm">Confirma que já está dentro. Pede o WhatsApp com DDI — backup se o grupo sair do ar.</p>
+        <p class="muted" style="margin-top:6mm;font-size:12pt">~6% bloqueia o bot. Normal. Elas ainda entram no grupo.</p>
+      </div>
+      <div style="display:flex;justify-content:center">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-bar">
+              <div class="ava">A</div>
+              <div><span class="who">Amanda</span><span class="sub">@rh_amanda · RH</span></div>
+            </div>
+            <div class="bubble">
+              Oi, João!<br><br>
+              Sou a Amanda do RH. Sua entrada no grupo <strong>Empregos On-line</strong> já foi aprovada — você já está dentro.<br><br>
+              Me manda seu número com DDI.<br>
+              +55 11 99391-1111
+            </div>
+          </div>
         </div>
-        <div class="insight" style="margin-top:5mm;font-size:11pt">~6% bloqueia o bot. Normal. Elas ainda entram no grupo. Particular falhou, aceite funcionou.</div>
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC · Treinamento interno</span><span>06 / 12</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>08 / 16</span></div>
 </section>
 
-<!-- 07 GRUPO -->
+<!-- 09 -->
 <section class="page">
-  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">03 · Envio no grupo</span></div>
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">02 · Particular</span></div>
   <div class="content">
-    <div class="page-kicker">Texto · vídeo · link</div>
-    <h2>O grupo é o mural de vagas</h2>
+    <div class="kicker">Regra do Telegram</div>
+    <h2>Depois de 24 horas, o bot cala.</h2>
     <div class="rule"></div>
-    <div class="grid-3">
-      <div class="card">
-        <div class="mini-label">grupo-texto</div>
-        <h3 style="margin-top:3mm">Texto + botão</h3>
-        <p style="color:var(--slate);margin:0">Nova vaga: Atendente home office. Candidatura pelo botão. <strong>Ver vaga</strong></p>
-      </div>
-      <div class="card">
-        <div class="mini-label">grupo-video</div>
-        <h3 style="margin-top:3mm">Vídeo + botão</h3>
-        <p style="color:var(--slate);margin:0">Clipe curto + legenda + <strong>Candidatar-se</strong>. Não promete “vídeo completo”.</p>
-      </div>
-      <div class="card dark">
-        <div class="mini-label" style="color:#3CF26B">Cuidado no caption</div>
-        <h3 style="margin-top:3mm;color:#fff">--form-string</h3>
-        <p style="color:#b7c3bc;margin:0">Nunca -F no texto. O curl lê &lt;b&gt; como arquivo e o post sai mudo.</p>
-      </div>
+    <div class="tl">
+      <div class="cell on"><span class="t">0h</span><span class="l">Boas-vindas</span><span class="d">Na hora do aceite</span></div>
+      <div class="cell on"><span class="t">12h</span><span class="l">Toque leve</span><span class="d">Só se não mandou o número</span></div>
+      <div class="cell on"><span class="t">23h</span><span class="l">Urgência</span><span class="d">“menos de 1h pra eu te escrever”</span></div>
+      <div class="cell wall"><span class="t">24h</span><span class="l">Muro</span><span class="d">Telegram fecha. Acabou.</span></div>
     </div>
-    <div class="insight" style="margin-top:7mm">Não posta na mão “pra não ficar vazio” se o horário automático já cobre. Criativo novo: aprova antes de subir.</div>
+    <p class="slate" style="margin-top:8mm;font-size:13pt">Mandou o número → para. Bloqueou → para. Ninguém dispara particular em massa sem ordem.</p>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC · Treinamento interno</span><span>07 / 12</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>09 / 16</span></div>
 </section>
 
-<!-- 08 SCRIPT -->
+<!-- 10 -->
 <section class="page">
-  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Scripts</span></div>
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">03 · Grupo</span></div>
   <div class="content">
-    <div class="page-kicker">scripts/rh_amanda.py</div>
-    <h2>Três comandos. Dry-run por padrão.</h2>
-    <div class="rule"></div>
-    <div class="mono">python3 scripts/rh_amanda.py aprovar --chat -100… --user 111 --nome Joao
-
-python3 scripts/rh_amanda.py grupo-texto --chat -100… --texto "Nova vaga…" \
-    --botao "Ver vaga" --link "https://empregos.exemplo/vaga/atendente"
-
-python3 scripts/rh_amanda.py grupo-video --chat -100… --video ./vaga.mp4 \
-    --titulo "Vaga: Atendente — home office" --botao "Candidatar-se" --link "…"</div>
-    <div class="grid-2" style="margin-top:6mm">
-      <div class="card soft"><span class="chip high">sem --go</span><p style="margin:3mm 0 0;color:var(--slate)">Só imprime o JSON. Não manda nada no Telegram. Use no treino.</p></div>
-      <div class="card" style="border-left:1.5mm solid var(--alert)"><span class="chip medium">com --go</span><p style="margin:3mm 0 0;color:var(--slate)">Envia de verdade. Só em grupo de teste, até o responsável mandar.</p></div>
+    <div class="g2" style="height:100%;align-items:center">
+      <div>
+        <div class="kicker">O que o grupo mostra</div>
+        <h2>Vaga + botão.<br>Sempre.</h2>
+        <div class="rule"></div>
+        <p class="slate" style="font-size:14pt;line-height:1.45">Texto ou vídeo. O botão é <strong>Candidatar-se</strong> / <strong>Ver vaga</strong>. Quem já está no grupo já viu o clipe — o botão não promete “vídeo completo”.</p>
+      </div>
+      <div class="tg">
+        <div class="tg-head">
+          <div class="ava">EO</div>
+          <div><span class="who">Empregos On-line</span><span class="sub">@rh_amanda publicou</span></div>
+        </div>
+        <div class="tg-body">
+          <div class="post">
+            <div class="vid"><div class="play"><i></i></div></div>
+            <div class="post-copy">
+              <h4>Vaga: Atendente — home office</h4>
+              <p>Salário + comissão. Vagas limitadas nesta semana.</p>
+              <div class="cta">Candidatar-se</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC · Treinamento interno</span><span>08 / 12</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>10 / 16</span></div>
 </section>
 
-<!-- 09 REGRAS -->
+<!-- 11 -->
 <section class="page">
-  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Regras de ouro</span></div>
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">03 · Grupo</span></div>
   <div class="content">
-    <div class="page-kicker">Imprime e cola</div>
-    <h2>Nove linhas. Sem exceção.</h2>
+    <div class="kicker">Dois formatos</div>
+    <h2>Texto ou vídeo. Os dois levam botão.</h2>
     <div class="rule"></div>
-    <div class="grid-2">
-      <ul class="bullets">
-        <li>Pediu → entrou na hora. Fila = alerta vermelho.</li>
-        <li>Só se compartilha o link com pedido (t.me/+).</li>
-        <li>Não mexe em configuração do grupo.</li>
-        <li>Não sobe segundo bot no mesmo token.</li>
-        <li>Não posta no grupo na mão se o automático cobre o horário.</li>
-      </ul>
-      <ul class="bullets">
-        <li>Não dispara particular em massa sem ordem.</li>
-        <li>Botão do grupo = Candidatar-se / Ver vaga.</li>
-        <li>--go só em grupo de teste.</li>
-        <li>Viu problema, avisa no mesmo minuto.</li>
-      </ul>
+    <div class="g2">
+      <div class="card" style="padding:7mm">
+        <span class="chip ok">grupo-texto</span>
+        <h3 style="margin:5mm 0 3mm;font-size:18pt">Mensagem + link</h3>
+        <p class="slate" style="font-size:13pt;line-height:1.45">Nova vaga aberta: Atendente home office. Candidatura pelo botão.</p>
+        <div class="cta" style="margin-top:8mm">Ver vaga</div>
+      </div>
+      <div class="card" style="padding:7mm">
+        <span class="chip ok">grupo-video</span>
+        <h3 style="margin:5mm 0 3mm;font-size:18pt">Clipe + legenda</h3>
+        <p class="slate" style="font-size:13pt;line-height:1.45">Vídeo curto. Caption em HTML. Botão Candidatar-se.</p>
+        <p class="muted" style="margin-top:6mm;font-size:11pt">Caption: --form-string. Nunca -F no texto — o curl lê &lt;b&gt; como arquivo.</p>
+      </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC · Treinamento interno</span><span>09 / 12</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>11 / 16</span></div>
 </section>
 
-<!-- 10 SE QUEBRAR -->
+<!-- 12 -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Script</span></div>
+  <div class="content">
+    <div class="kicker">scripts/rh_amanda.py</div>
+    <h2>Três comandos. Só isso.</h2>
+    <div class="rule"></div>
+    <div class="cmd">python3 scripts/rh_amanda.py <b>aprovar</b>      --chat -100… --user 111 --nome Joao
+python3 scripts/rh_amanda.py <b>grupo-texto</b>  --chat -100… --texto "…" --botao "Ver vaga" --link "…"
+python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.mp4 --titulo "…" --link "…"</div>
+    <p class="slate" style="margin-top:6mm;font-size:13pt">Sem <strong>--go</strong> o script só imprime o JSON. Não manda nada. Use assim no treino.</p>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>12 / 16</span></div>
+</section>
+
+<!-- 13 -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Script</span></div>
+  <div class="content">
+    <div class="g2" style="height:100%">
+      <div class="dark" style="border-radius:3.2mm;padding:8mm;display:flex;flex-direction:column">
+        <span class="chip ok">treino</span>
+        <h3 style="margin:6mm 0 3mm;font-size:22pt;color:#fff">Sem --go</h3>
+        <p style="color:#b7c3bc;font-size:14pt;line-height:1.45;margin-top:auto">Imprime o que faria. Seguro. É o modo padrão.</p>
+      </div>
+      <div class="alert" style="border-radius:3.2mm;padding:8mm;background:#fbf2ef;display:flex;flex-direction:column">
+        <span class="chip no">produção</span>
+        <h3 style="margin:6mm 0 3mm;font-size:22pt">Com --go</h3>
+        <p class="slate" style="font-size:14pt;line-height:1.45;margin-top:auto">Envia de verdade. Só em grupo de teste, até o responsável mandar.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>13 / 16</span></div>
+</section>
+
+<!-- 14 -->
+<section class="page">
+  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Regras</span></div>
+  <div class="content">
+    <div class="kicker">Imprime e cola</div>
+    <h2>Nove linhas.</h2>
+    <div class="rule"></div>
+    <div class="g3">
+      <div class="card"><strong>1.</strong> Pediu → entrou na hora.</div>
+      <div class="card"><strong>2.</strong> Só o link com pedido (t.me/+).</div>
+      <div class="card"><strong>3.</strong> Não mexe na config do grupo.</div>
+      <div class="card"><strong>4.</strong> Um bot. Um token. Uma instância.</div>
+      <div class="card"><strong>5.</strong> Não posta na mão se o horário já cobre.</div>
+      <div class="card"><strong>6.</strong> Sem disparo em massa no particular.</div>
+      <div class="card"><strong>7.</strong> Botão = Candidatar-se / Ver vaga.</div>
+      <div class="card"><strong>8.</strong> --go só em grupo de teste.</div>
+      <div class="card go"><strong>9.</strong> Viu problema, avisa no minuto.</div>
+    </div>
+  </div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>14 / 16</span></div>
+</section>
+
+<!-- 15 -->
 <section class="page">
   <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Se quebrar</span></div>
   <div class="content">
-    <div class="page-kicker">Protocolo</div>
+    <div class="kicker">Protocolo</div>
     <h2>Viu. Avisa. Não inventa.</h2>
     <div class="rule"></div>
-    <div class="table-wrap">
-      <table>
-        <tr><th style="width:72mm">O que você vê</th><th>O que fazer</th></tr>
-        <tr><td>Gente pendente</td><td>Aprova agora + avisa</td></tr>
-        <tr><td>“Pedi e não entrei”</td><td>Aprova se estiver na lista; senão cancela e pede de novo no mesmo link</td></tr>
-        <tr><td>Entrou sem particular</td><td>Normal se bloqueou o bot. O que importa é estar no grupo</td></tr>
-        <tr><td>Grupo mudo no horário</td><td>Avisa. Não posta na mão</td></tr>
-        <tr><td>Post sem botão / dois iguais</td><td>Avisa. Não cola outro link e não apaga no feeling</td></tr>
-      </table>
+    <div class="g2">
+      <div class="pend-row" style="border:.25mm solid var(--line);border-radius:3mm;margin-bottom:3.5mm"><div><div class="nm">Gente pendente</div><div class="muted" style="font-size:10pt;margin-top:1mm">Aprova agora + avisa</div></div></div>
+      <div class="pend-row" style="border:.25mm solid var(--line);border-radius:3mm;margin-bottom:3.5mm"><div><div class="nm">“Pedi e não entrei”</div><div class="muted" style="font-size:10pt;margin-top:1mm">Aprova na lista, ou cancela e pede de novo</div></div></div>
+      <div class="pend-row" style="border:.25mm solid var(--line);border-radius:3mm;margin-bottom:3.5mm"><div><div class="nm">Entrou sem particular</div><div class="muted" style="font-size:10pt;margin-top:1mm">Normal se bloqueou o bot</div></div></div>
+      <div class="pend-row" style="border:.25mm solid var(--line);border-radius:3mm;margin-bottom:3.5mm"><div><div class="nm">Grupo mudo / post sem botão</div><div class="muted" style="font-size:10pt;margin-top:1mm">Avisa. Não posta nem cola link na mão</div></div></div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC · Treinamento interno</span><span>10 / 12</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>15 / 16</span></div>
 </section>
 
-<!-- 11 PACK -->
-<section class="page">
-  <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Este pack</span></div>
-  <div class="content">
-    <div class="page-kicker">Onde está cada coisa</div>
-    <h2>Um repositório. Nada solto.</h2>
-    <div class="rule"></div>
-    <div class="grid-2">
-      <div class="mono" style="font-size:10pt;line-height:1.7">README.md
-JOINADS-Treinamento-Admin-Grupos.pdf
-apresentacao/slides.html
-docs/01 … 05
-scripts/rh_amanda.py
-examples/comandos.md
-brand/joinads-logo.png</div>
-      <div>
-        <ul class="bullets">
-          <li><strong>PDF</strong> — esta apresentação, pra projetar ou mandar no time.</li>
-          <li><strong>HTML</strong> — mesmo deck, abre no Chrome.</li>
-          <li><strong>Docs</strong> — texto completo, um arquivo por tema.</li>
-          <li><strong>Script</strong> — os três comandos, dry-run por padrão.</li>
-        </ul>
-        <div class="insight" style="margin-top:5mm;font-size:11pt">Começar: <span class="mono" style="display:inline;padding:1mm 2mm">python3 scripts/rh_amanda.py aprovar --chat … --nome Joao</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC · Treinamento interno</span><span>11 / 12</span></div>
-</section>
-
-<!-- 12 CLOSE -->
+<!-- 16 -->
 <section class="page">
   <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Encerramento</span></div>
-  <div class="content">
-    <div class="page-kicker">Pra gravar</div>
-    <p class="big-quote">A pessoa pede pra entrar, o bot aceita na hora, manda o particular, e o grupo trabalha sozinho com vaga + botão. Gente na fila, grupo mudo ou link errado: avisa agora. Não “resolve no grupo” na mão.</p>
-    <div class="rule"></div>
-    <div class="signature">
+  <div class="content" style="display:flex;flex-direction:column;justify-content:center">
+    <p class="quote">A pessoa pede pra entrar, o bot aceita na hora, manda o particular, e o grupo trabalha sozinho com vaga + botão. Gente na fila, grupo mudo ou link errado: avisa agora.</p>
+    <div class="sig">
       <img src="joinads-logo.png" alt="JOINADS">
       <div>
         <div class="line"><strong>JOINADS, LLC</strong></div>
-        <p>Treinamento interno · Administração de grupos Telegram<br>Empregos On-line · @rh_amanda · circulação restrita</p>
+        <p>Treinamento interno · Administração de grupos Telegram<br>Empregos On-line · @rh_amanda · github.com/caionorder/telegram</p>
       </div>
     </div>
   </div>
-  <div class="footer"><span>Confidencial · JOINADS, LLC · Treinamento interno</span><span>12 / 12</span></div>
+  <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>16 / 16</span></div>
 </section>
 
 </body>

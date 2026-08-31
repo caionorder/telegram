@@ -49,6 +49,22 @@ BOT = "@rh_amanda"
 RH = "Amanda"
 
 API = "https://api.telegram.org/bot{token}/{method}"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
+
+def load_env() -> None:
+    """Lê .env na raiz do repo (BOT_TOKEN=...). Não sobrescreve o que já está no ambiente."""
+    path = os.path.join(ROOT, ".env")
+    if not os.path.isfile(path):
+        return
+    with open(path) as fh:
+        for raw in fh:
+            line = raw.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, _, val = line.partition("=")
+            key, val = key.strip(), val.strip().strip('"').strip("'")
+            os.environ.setdefault(key, val)
 
 
 def tg(token: str, method: str, payload: dict, dry: bool) -> dict:
@@ -156,8 +172,16 @@ def cmd_grupo_texto(args, token: str, dry: bool) -> None:
 
 
 def main() -> None:
+    load_env()
     p = argparse.ArgumentParser(
-        description=f"Exemplo LIGHT: {BOT} no grupo {GRUPO}"
+        prog="rh_amanda.py",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description=f"{BOT} no grupo {GRUPO} — aceite, particular e envio no grupo.",
+        epilog=(
+            "Sem --go o script só imprime o JSON (treino).\n"
+            "Com --go envia de verdade — precisa BOT_TOKEN no ambiente ou no .env.\n"
+            "Documentação: scripts/README.md"
+        ),
     )
     p.add_argument("--go", action="store_true", help="Envia de verdade. Sem isso, só mostra.")
     sub = p.add_subparsers(dest="cmd", required=True)
