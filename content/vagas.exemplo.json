@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "comment": "Padrão JOINADS: todo post tem type + buttons[].url. Sem botão = inválido.",
+  "posts": [
+    {
+      "type": "text",
+      "text": "Nova vaga aberta: Atendente home office.\nSalário + comissão. Candidatura pelo botão.",
+      "buttons": [
+        {
+          "text": "Candidatar-se",
+          "url": "https://empregos.exemplo/vaga/atendente"
+        }
+      ]
+    },
+    {
+      "type": "photo",
+      "photo": "https://picsum.photos/1280/720",
+      "caption": "Vaga: Atendente — home office\nVagas limitadas nesta semana.",
+      "buttons": [
+        {
+          "text": "Ver vaga",
+          "url": "https://empregos.exemplo/vaga/atendente"
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "video": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "caption": "Atendente home office — veja como é o dia a dia.\nCandidate-se pelo botão.",
+      "buttons": [
+        {
+          "text": "Candidatar-se",
+          "url": "https://empregos.exemplo/vaga/atendente"
+        }
+      ]
+    }
+  ]
+}

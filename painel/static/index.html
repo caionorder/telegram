@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JOINADS · Telegram</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Pular para conteúdo</a>
+
+  <div id="view-login" class="login hidden">
+    <form class="login-card" id="form-login">
+      <svg class="brand" viewBox="0 0 160 28" aria-hidden="true"><text x="0" y="22" fill="#3CF26B" font-family="Arial" font-size="22" font-weight="800">JOINADS</text></svg>
+      <h1>Painel Telegram</h1>
+      <p>Uso interno. SQLite local. Não precisa de banco externo.</p>
+      <div class="err" id="login-err" role="alert"></div>
+      <label for="user">Usuário</label>
+      <input id="user" name="user" autocomplete="username" required>
+      <label for="password">Senha</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required>
+      <button class="btn btn-primary" type="submit" style="width:100%">Entrar</button>
+    </form>
+  </div>
+
+  <div id="view-app" class="app hidden">
+    <aside class="side">
+      <svg class="brand" viewBox="0 0 160 28" aria-hidden="true"><text x="0" y="22" fill="#3CF26B" font-family="Arial" font-size="22" font-weight="800">JOINADS</text></svg>
+      <nav aria-label="Seções">
+        <button class="nav-btn" data-tab="canais" aria-current="page">Canais</button>
+        <button class="nav-btn" data-tab="bots">Bots</button>
+        <button class="nav-btn" data-tab="conteudo">JSON / envio</button>
+        <button class="nav-btn" data-tab="daemon">Aprovação</button>
+        <button class="nav-btn" data-tab="logs">Logs</button>
+      </nav>
+      <div class="grow"></div>
+      <button class="btn btn-ghost" type="button" id="btn-logout">Sair</button>
+    </aside>
+    <main class="main" id="main">
+      <section data-panel="canais">
+        <div class="top">
+          <div>
+            <h2>Canais</h2>
+            <p class="sub">Um canal = chat_id + bot + texto de boas-vindas + JSON de conteúdo.</p>
+          </div>
+          <button class="btn btn-primary" type="button" id="btn-new-channel">Novo canal</button>
+        </div>
+        <div id="form-channel" class="drawer hidden"></div>
+        <div class="card" id="list-channels"><p class="muted">Carregando…</p></div>
+      </section>
+
+      <section data-panel="bots" class="hidden">
+        <div class="top">
+          <div>
+            <h2>Bots</h2>
+            <p class="sub">Token do BotFather. Username termina em bot. Ex.: @rh_amanda_bot</p>
+          </div>
+          <button class="btn btn-primary" type="button" id="btn-new-bot">Novo bot</button>
+        </div>
+        <div id="form-bot" class="drawer hidden"></div>
+        <div class="card" id="list-bots"><p class="muted">Carregando…</p></div>
+      </section>
+
+      <section data-panel="conteudo" class="hidden">
+        <div class="top">
+          <div>
+            <h2>JSON / envio</h2>
+            <p class="sub">O canal aponta pra um arquivo local ou uma URL. Todo post leva botão com link.</p>
+          </div>
+        </div>
+        <div class="card">
+          <p class="muted">Exemplo no repo: <span class="mono">content/vagas.exemplo.json</span></p>
+          <p class="muted">No canal, campo JSON: esse caminho ou uma URL https://…</p>
+          <p class="muted">Tipos: <span class="mono">text</span> · <span class="mono">photo</span> · <span class="mono">video</span> — todos com <span class="mono">buttons[].url</span></p>
+        </div>
+      </section>
+
+      <section data-panel="daemon" class="hidden">
+        <div class="top">
+          <div>
+            <h2>Aprovação automática</h2>
+            <p class="sub">Não é cron de 1 minuto. É um processo vivo (getUpdates). Cron/Agendador só serve pra <strong>subir de novo</strong> se o PC reiniciar.</p>
+          </div>
+        </div>
+        <div class="card status-bar">
+          <span class="pill" id="daemon-pill">—</span>
+          <span class="muted" id="daemon-status"></span>
+          <button class="btn btn-primary" type="button" id="btn-daemon-on">Ligar aprovação</button>
+          <button class="btn btn-ghost" type="button" id="btn-daemon-off">Desligar</button>
+        </div>
+      </section>
+
+      <section data-panel="logs" class="hidden">
+        <div class="top"><div><h2>Logs</h2><p class="sub">Aprovações, DMs, envios e erros. SQLite local.</p></div>
+          <button class="btn btn-ghost" type="button" id="btn-refresh-logs">Atualizar</button>
+        </div>
+        <div class="card" id="list-logs"></div>
+      </section>
+    </main>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>

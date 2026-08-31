@@ -1,98 +1,79 @@
 # JOINADS — Administração de grupos Telegram
 
-Treinamento interno. Repositório: [caionorder/telegram](https://github.com/caionorder/telegram).
-
-Exemplo didático (versão light):
+Treinamento interno. Repositório privado: [caionorder/telegram](https://github.com/caionorder/telegram).
 
 | Peça | Nome |
 |------|------|
 | Grupo | **Empregos On-line** (privado) |
-| Bot | **@rh_amanda_bot** (Amanda, RH) |
+| Bot | **@rh_amanda_bot** (Amanda RH) |
+| Painel | http://127.0.0.1:8787 · SQLite local |
 
-A mecânica é a mesma da operação: **criar bot e grupo → aceite → particular → texto / vídeo / link no grupo**.
-
-Setup (BotFather + grupo fechado): [`docs/00-criar-bot-e-canal.md`](docs/00-criar-bot-e-canal.md)
+Fluxo: **criar bot e grupo → aceite sozinho → particular → JSON (texto / foto / vídeo + link)**.
 
 ---
 
-## Começar
+## Começar (Mac)
 
 ```bash
 git clone git@github.com:caionorder/telegram.git
 cd telegram
-
-# 1. Ver a apresentação (Chrome, 16:9)
-open apresentacao/slides.html
-
-# 2. Rodar o script em dry-run (não envia nada)
-python3 scripts/rh_amanda.py aprovar \
-    --chat -1001234567890 \
-    --user 111222333 \
-    --nome Joao
+cp .env.example .env          # troque ADMIN_PASSWORD
+./scripts/start-mac.sh        # http://127.0.0.1:8787
 ```
 
-PDF institucional: [`JOINADS-Treinamento-Admin-Grupos.pdf`](JOINADS-Treinamento-Admin-Grupos.pdf)
+Instalação completa: [docs/06-install-macos.md](docs/06-install-macos.md)
+
+## Começar (Windows)
+
+1. Instale Python e **marque Add to PATH** — [docs/07-install-windows.md](docs/07-install-windows.md)
+2. `copy .env.example .env`
+3. Dois cliques em `scripts\start-windows.bat`
+
+Login: `admin` / senha do `.env`.
 
 ---
 
-## O que tem aqui
+## O que o time usa no dia a dia
 
-```
-telegram/
-├── README.md                                 ← você está aqui
-├── JOINADS-Treinamento-Admin-Grupos.pdf      ← 23 slides, identidade JOINADS
-├── apresentacao/
-│   ├── slides.html                           ← mesmo deck, pra projetar
-│   └── exportar-pdf.sh
-├── docs/                                     ← texto completo, um tema por arquivo
-│   ├── 00-criar-bot-e-canal.md
-│   ├── 01-visao-geral.md
-│   ├── 02-aceite-de-membros.md
-│   ├── 03-mensagem-particular.md
-│   ├── 04-envio-no-grupo.md
-│   └── 05-regras-e-falhas.md
-├── scripts/
-│   ├── README.md                             ← documentação do script
-│   └── rh_amanda.py                          ← aprovar · grupo-texto · grupo-video
-├── examples/comandos.md
-└── brand/joinads-logo.png
-```
+O **painel** (`python3 painel/app.py`):
+
+- Cadastra **bots** (token BotFather)
+- Cadastra **canais** (chat_id, boas-vindas `{name}`, JSON)
+- **Liga a aprovação** (processo vivo — não é cron de 1 min)
+- **Envia o JSON agora** (texto / foto / vídeo, sempre com link)
+
+Banco: arquivo `data/app.sqlite`. Sem Postgres.
+
+JSON de exemplo: [`content/vagas.exemplo.json`](content/vagas.exemplo.json)  
+Padrão: [docs/09-json-padrao.md](docs/09-json-padrao.md)
+
+Aprovação sozinha (LaunchAgent / Agendador): [docs/08-daemon-e-cron.md](docs/08-daemon-e-cron.md)
 
 ---
 
-## Script
-
-Documentação completa: [`scripts/README.md`](scripts/README.md)
+## CLI (opcional)
 
 ```bash
-python3 scripts/rh_amanda.py aprovar     --chat -100… --user 111 --nome Joao
-python3 scripts/rh_amanda.py grupo-texto --chat -100… --texto "…" --botao "Ver vaga" --link "…"
-python3 scripts/rh_amanda.py grupo-video --chat -100… --video ./vaga.mp4 --titulo "…" --link "…"
+python3 scripts/rh_amanda.py aprovar --chat -100… --user 111 --nome Joao
 ```
 
-Sem `--go` só imprime. Com `--go` envia (precisa `BOT_TOKEN` no `.env`).
-
-```bash
-cp .env.example .env
-```
+Sem `--go` só imprime. [scripts/README.md](scripts/README.md)
 
 ---
 
-## Frase pra gravar
+## Docs
 
-> A pessoa pede pra entrar, o bot aceita na hora, manda o particular, e o grupo trabalha sozinho com vaga + botão. Gente na fila, grupo mudo ou link errado: avisa agora.
+| Arquivo | Assunto |
+|---------|---------|
+| [00-criar-bot-e-canal.md](docs/00-criar-bot-e-canal.md) | BotFather + grupo fechado |
+| [06-install-macos.md](docs/06-install-macos.md) | Python no Mac |
+| [07-install-windows.md](docs/07-install-windows.md) | Python no Windows |
+| [08-daemon-e-cron.md](docs/08-daemon-e-cron.md) | Por que não cron de 1 min |
+| [09-json-padrao.md](docs/09-json-padrao.md) | text / photo / video + buttons |
+| [10-painel.md](docs/10-painel.md) | UI local |
+
+Apresentação: `apresentacao/slides.html` · PDF na raiz.
 
 ---
 
-## Identidade
-
-Ink `#030b09` · verde JOINADS `#3CF26B` · pale `#F5FBF2`  
-Logo sempre em fundo ink. JOINADS, LLC.
-
-Uso interno. Não encaminhar pra publisher, mídia ou pessoa de fora.
-
-Regenerar o PDF:
-
-```bash
-./apresentacao/exportar-pdf.sh
-```
+Uso interno JOINADS, LLC. Não encaminhar pra publisher.
