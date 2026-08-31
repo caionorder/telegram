@@ -129,20 +129,21 @@ p{margin:0}
 .cmd b{color:var(--green);font-weight:700}
 .dot{width:2.2mm;height:2.2mm;border-radius:50%;background:var(--green);display:inline-block;margin-right:2mm}
 .status-bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.ui{display:grid;grid-template-columns:42mm 1fr;border:.25mm solid var(--line);border-radius:3mm;overflow:hidden;min-height:92mm;background:#fff}
-.ui-side{background:var(--ink);color:#dfe8e2;padding:4mm 3.5mm}
-.ui-side .logo{font-size:9pt;font-weight:800;color:var(--green);letter-spacing:.08em;margin-bottom:4mm}
-.ui-side .item{font-size:8.5pt;padding:2.2mm 2.5mm;border-radius:1.6mm;margin-bottom:1mm;color:#9aa89f}
-.ui-side .item.on{background:#1a2a22;color:#fff;font-weight:700}
-.ui-main{padding:4.5mm 5mm;background:#f7faf7}
-.ui-h{font-size:13pt;font-weight:800;letter-spacing:-.02em;margin:0 0 1mm}
-.ui-s{font-size:8pt;color:var(--muted);margin:0 0 3.5mm}
+.ui{display:grid;grid-template-columns:42mm 1fr;border:.25mm solid rgba(255,255,255,.08);border-radius:2.4mm;overflow:hidden;min-height:92mm;background:#08090a;color:#f7f8f8}
+.ui-side{background:#0f1011;color:#8a8f98;padding:4mm 3.5mm}
+.ui-side .logo{font-size:8pt;font-weight:600;color:#3CF26B;letter-spacing:.12em;margin-bottom:4mm}
+.ui-side .item{font-size:8pt;padding:2mm 2.4mm;border-radius:1.4mm;margin-bottom:.6mm;color:#8a8f98}
+.ui-side .item.on{background:rgba(255,255,255,.05);color:#f7f8f8;font-weight:500}
+.ui-main{padding:4.5mm 5mm;background:#08090a;color:#f7f8f8}
+.ui-h{font-size:12pt;font-weight:500;letter-spacing:-.02em;margin:0 0 1mm;color:#f7f8f8}
+.ui-s{font-size:8pt;color:#8a8f98;margin:0 0 3.5mm}
 .ui-field{margin-bottom:2.4mm}
-.ui-lab{display:block;font-size:7pt;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.7mm}
-.ui-inp{border:.25mm solid var(--line);background:#fff;border-radius:1.4mm;padding:1.8mm 2.4mm;font-size:8.5pt;color:var(--ink)}
-.ui-btn{display:inline-block;background:var(--green);color:var(--ink);font-weight:800;font-size:8pt;padding:1.6mm 3.2mm;border-radius:1.5mm}
-.ui-btn.ghost{background:#fff;border:.25mm solid var(--line)}
-.ui-row{display:flex;justify-content:space-between;align-items:center;border:.25mm solid var(--line);border-radius:2mm;padding:2.4mm 3mm;background:#fff;margin-bottom:2mm;font-size:8.5pt}
+.ui-lab{display:block;font-size:7pt;font-weight:500;letter-spacing:.06em;color:#8a8f98;margin-bottom:.7mm}
+.ui-inp{border:.25mm solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);border-radius:1.2mm;padding:1.8mm 2.4mm;font-size:8.5pt;color:#f7f8f8}
+.ui-btn{display:inline-block;background:var(--green);color:var(--ink);font-weight:600;font-size:8pt;padding:1.5mm 3mm;border-radius:1.2mm}
+.ui-btn.ghost{background:transparent;border:.25mm solid rgba(255,255,255,.08);color:#d0d6e0}
+.ui-row{display:flex;justify-content:space-between;align-items:center;border:0;border-bottom:.25mm solid rgba(255,255,255,.05);border-radius:0;padding:2.2mm 0;background:transparent;margin-bottom:0;font-size:8.5pt;color:#f7f8f8}
+.ui .muted{color:#8a8f98}
 @media print{html,body{background:#fff}.page{margin:0}}
 </style>
 </head>
@@ -785,7 +786,7 @@ python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.m
   <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">Painel · Canais</span></div>
   <div class="content">
     <div class="kicker">Novo canal / Editar</div>
-    <h2>O que cada campo faz</h2>
+    <h2>O que cada campo faz — wizard em 3 passos</h2>
     <div class="rule"></div>
     <div class="g2">
       <div>
@@ -796,7 +797,7 @@ python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.m
       <div>
         <div class="ui-field"><div class="ui-lab">Boas-vindas (use {name})</div><div class="ui-inp" style="min-height:22mm">Oi, {name}! Sou a Amanda do RH. Sua entrada já foi aprovada…</div><p class="muted" style="font-size:8.5pt;margin-top:1mm">{name} vira o primeiro nome de quem pediu. É o particular.</p></div>
         <div class="ui-field"><div class="ui-lab">JSON (arquivo ou URL)</div><div class="ui-inp">content/vagas.exemplo.json</div><p class="muted" style="font-size:8.5pt;margin-top:1mm">O que sobe no grupo quando clica Enviar JSON agora. Arquivo no repo ou https://…</p></div>
-        <p class="slate" style="margin-top:3mm;font-size:11pt"><strong>Enviar JSON agora</strong> lê esse arquivo e publica text / photo / video com botão. Não espera horário.</p>
+        <p class="slate" style="margin-top:3mm;font-size:11pt"><strong>Wizard:</strong> 1 Grupo (Detectar pelo nome) → 2 Boas-vindas + JSON → 3 Agenda (chips 08h/11h…). Continuar / Voltar / Salvar.</p>
       </div>
     </div>
   </div>
@@ -898,14 +899,13 @@ python3 scripts/rh_amanda.py <b>grupo-video</b>  --chat -100… --video ./vaga.m
   <div class="header"><img src="joinads-logo.png" alt="JOINADS"><span class="section">JSON</span></div>
   <div class="content">
     <div class="kicker">Padrão de conteúdo</div>
-    <h2>Texto, foto ou vídeo. Sempre com link.</h2>
+    <h2>Agenda JSON — cron pelo painel</h2>
     <div class="rule"></div>
-    <div class="g3">
-      <div class="card"><h3>text</h3><p class="muted" style="margin-top:2mm">text + buttons[].url</p></div>
-      <div class="card"><h3>photo</h3><p class="muted" style="margin-top:2mm">photo URL + caption + buttons</p></div>
-      <div class="card"><h3>video</h3><p class="muted" style="margin-top:2mm">video URL + caption + buttons</p></div>
+    <div class="g2">
+      <div class="card" style="padding:7mm"><h3>Horário no canal</h3><p class="slate" style="margin-top:3mm;font-size:13pt;line-height:1.45">Passo 3 do wizard: chips 08 / 11 / 14 / 17 / 20. Relê o JSON na hora. Uma vez por hora.</p></div>
+      <div class="card" style="padding:7mm"><h3>Instalar no sistema</h3><p class="slate" style="margin-top:3mm;font-size:13pt;line-height:1.45">Tela Agenda → Instalar. Mac LaunchAgent / Windows Agendador. Painel fechado continua enviando.</p></div>
     </div>
-    <p class="slate" style="margin-top:7mm;font-size:13pt">Arquivo local ou URL. Exemplo: content/vagas.exemplo.json. Sem botão o envio recusa.</p>
+    <p class="slate" style="margin-top:7mm;font-size:13pt">Arquivo ou URL. Exemplo: content/vagas.exemplo.json. Sem botão o envio recusa.</p>
   </div>
   <div class="footer"><span>Confidencial · JOINADS, LLC</span><span>32 / 36</span></div>
 </section>
